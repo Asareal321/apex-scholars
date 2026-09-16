@@ -7,16 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { getSubject, getTutor, subjects, tutors } from "@/lib/catalog";
 import { slotsForDate, upcomingDays } from "@/lib/slots";
+import { cn } from "@/lib/utils";
+
+const selectClassName = cn(
+  "h-10 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none",
+  "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+  "disabled:cursor-not-allowed disabled:opacity-50"
+);
 
 type BookingFormProps = {
   initialSubjectId?: string;
@@ -152,38 +152,43 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label>Subject</Label>
-          <Select value={subjectId || null} onValueChange={onSubjectChange}>
-            <SelectTrigger className="h-10 w-full">
-              <SelectValue placeholder="Choose a subject" />
-            </SelectTrigger>
-            <SelectContent>
-              {subjects.map((item) => (
-                <SelectItem key={item.id} value={item.id}>
-                  {item.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Label htmlFor="subject">Subject</Label>
+          <select
+            id="subject"
+            name="subject"
+            className={selectClassName}
+            value={subjectId}
+            onChange={(event) => onSubjectChange(event.target.value)}
+            required
+          >
+            <option value="">Choose a subject</option>
+            {subjects.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="space-y-2">
-          <Label>Tutor</Label>
-          <Select
-            value={tutorId || null}
-            onValueChange={(value) => setTutorId(value ?? "")}
+          <Label htmlFor="tutor">Tutor</Label>
+          <select
+            id="tutor"
+            name="tutor"
+            className={selectClassName}
+            value={tutorId}
+            onChange={(event) => setTutorId(event.target.value)}
             disabled={!subject}
+            required
           >
-            <SelectTrigger className="h-10 w-full">
-              <SelectValue placeholder={subject ? "Choose a tutor" : "Pick a subject first"} />
-            </SelectTrigger>
-            <SelectContent>
-              {availableTutors.map((tutor) => (
-                <SelectItem key={tutor.id} value={tutor.id}>
-                  {tutor.name} — {tutor.role}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option value="">
+              {subject ? "Choose a tutor" : "Pick a subject first"}
+            </option>
+            {availableTutors.map((tutor) => (
+              <option key={tutor.id} value={tutor.id}>
+                {tutor.name} — {tutor.role}
+              </option>
+            ))}
+          </select>
           {subject && tutorId && !subject.tutorIds.includes(tutorId) ? (
             <p className="text-sm text-destructive">
               {getTutor(tutorId)?.name} does not take {subject.name}.
@@ -193,7 +198,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
       </div>
 
       <div className="space-y-2">
-        <Label>Day</Label>
+        <Label htmlFor="day">Day</Label>
         {days.length === 0 ? (
           <Alert>
             <AlertTitle>No studio days on the calendar</AlertTitle>
@@ -202,24 +207,23 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             </AlertDescription>
           </Alert>
         ) : (
-          <Select
-            value={date || null}
-            onValueChange={(value) => {
-              setDate(value ?? "");
+          <select
+            id="day"
+            name="day"
+            className={selectClassName}
+            value={date}
+            onChange={(event) => {
+              setDate(event.target.value);
               setSlotId("");
             }}
+            required
           >
-            <SelectTrigger className="h-10 w-full">
-              <SelectValue placeholder="Choose a day" />
-            </SelectTrigger>
-            <SelectContent>
-              {days.map((day) => (
-                <SelectItem key={day.iso} value={day.iso}>
-                  {day.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            {days.map((day) => (
+              <option key={day.iso} value={day.iso}>
+                {day.label}
+              </option>
+            ))}
+          </select>
         )}
       </div>
 

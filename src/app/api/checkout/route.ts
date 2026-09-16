@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Choose a listed package before checking out." }, { status: 400 });
   }
 
-  const origin = getSiteUrl(request.url);
+  const origin = getSiteUrl(request);
   const secret = getStripeSecretKey();
 
   if (!secret) {

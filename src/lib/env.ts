@@ -1,10 +1,22 @@
-export function getSiteUrl(requestUrl?: string) {
+export function getSiteUrl(request?: Request | string) {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   }
-  if (requestUrl) {
-    return new URL(requestUrl).origin;
+
+  if (request && typeof request !== "string") {
+    const host = request.headers.get("x-forwarded-host") || request.headers.get("host");
+    const proto = request.headers.get("x-forwarded-proto") || "http";
+    if (host) return `${proto}://${host}`.replace(/\/$/, "");
   }
+
+  if (typeof request === "string") {
+    try {
+      return new URL(request).origin;
+    } catch {
+      // fall through
+    }
+  }
+
   return "http://127.0.0.1:4327";
 }
 

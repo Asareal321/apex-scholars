@@ -106,7 +106,7 @@ export const subjects: Subject[] = [
       "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking BUS 1220.",
     proof:
-      "88 in BUS 1220 — a strong mark in that course. Got 10/10 in participation for 1220.",
+      "88 in BUS 1220 ending with 10/10 in participation",
     tutorIds: ["asa"],
   },
 ];
@@ -121,7 +121,7 @@ export const tutors: Tutor[] = [
     credentials:
       "100 in ECON 1021 · 100 in MATH 1229 · 98 in ECON 1022 · 96 in CALC 1000 · 95 in MOS 1023 · Dean's Honour List",
     bus1220Proof:
-      "88 in BUS 1220 — a strong mark in that course. Got 10/10 in participation for 1220.",
+      "88 in BUS 1220 ending with 10/10 in participation",
     initials: "AN",
     accent: "bg-primary text-primary-foreground",
   },

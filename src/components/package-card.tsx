@@ -34,16 +34,17 @@ export function PackageCard({
             <CardTitle className="font-heading text-xl">{lessonPackage.name}</CardTitle>
             <CardDescription className="mt-1">{lessonPackage.headline}</CardDescription>
           </div>
-          {lessonPackage.featured ? <Badge>Most chosen</Badge> : null}
+          {lessonPackage.featured ? <Badge>1-on-1</Badge> : null}
         </div>
         <p className="pt-3 font-heading text-4xl tracking-tight">
           {formatUsd(lessonPackage.priceCents)}
+          {lessonPackage.groupSize ? (
+            <span className="ml-2 text-lg text-muted-foreground">/ student</span>
+          ) : null}
         </p>
         <p className="text-sm text-muted-foreground">
-          {lessonPackage.sessions} × {lessonPackage.minutes} min
-          {lessonPackage.sessions > 1
-            ? ` · ${formatUsd(lessonPackage.perSessionCents)} per session`
-            : null}
+          {lessonPackage.minutes} min
+          {lessonPackage.groupSize ? ` · ${lessonPackage.groupSize} students` : " · 1-on-1"}
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -70,7 +71,7 @@ export function PackageCard({
             href="/packages"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-10 w-full px-4")}
           >
-            Compare packs
+            All rates
           </Link>
         ) : null}
       </CardFooter>

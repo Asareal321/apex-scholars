@@ -20,7 +20,7 @@ export default function ErrorPage({
   return (
     <div className="mx-auto max-w-lg px-4 py-16 sm:px-6">
       <Alert variant="destructive">
-        <AlertTitle>The studio page hit a snag</AlertTitle>
+        <AlertTitle>This page hit a snag</AlertTitle>
         <AlertDescription>
           {error.message || "Something in this view failed. Try again, or go back to the homepage."}
         </AlertDescription>

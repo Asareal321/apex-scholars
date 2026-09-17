@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { MountainMark } from "@/components/mountain-mark";
 import {
   Sheet,
   SheetContent,
@@ -15,9 +16,9 @@ import { studio } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/subjects", label: "Subjects" },
-  { href: "/tutors", label: "Tutors" },
-  { href: "/packages", label: "Packages" },
+  { href: "/subjects", label: "Courses" },
+  { href: "/tutors", label: "Tutor" },
+  { href: "/packages", label: "Rates" },
   { href: "/book", label: "Book" },
 ];
 
@@ -30,12 +31,7 @@ function Logo({ className }: { className?: string }) {
         className
       )}
     >
-      <span
-        aria-hidden
-        className="flex size-8 items-center justify-center rounded-md bg-primary text-[0.7rem] font-semibold tracking-[0.12em] text-primary-foreground"
-      >
-        NL
-      </span>
+      <MountainMark className="size-8" />
       <span>{studio.name}</span>
     </Link>
   );
@@ -66,10 +62,10 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-2">
           <Link
-            href="/packages"
+            href="/book"
             className={cn(buttonVariants({ size: "lg" }), "hidden h-9 px-3 sm:inline-flex")}
           >
-            Buy a package
+            Book a Zoom lesson
           </Link>
           <Sheet>
             <SheetTrigger
@@ -86,7 +82,7 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[min(20rem,90vw)]">
               <SheetHeader>
-                <SheetTitle>Northline</SheetTitle>
+                <SheetTitle>Apex Scholars</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4">
                 {links.map((link) => (
@@ -108,10 +104,10 @@ export function SiteHeader() {
                   </SheetTrigger>
                 ))}
                 <Link
-                  href="/packages"
+                  href="/book"
                   className={cn(buttonVariants({ size: "lg" }), "mt-3 h-10 justify-center")}
                 >
-                  Buy a package
+                  Book a Zoom lesson
                 </Link>
               </nav>
             </SheetContent>

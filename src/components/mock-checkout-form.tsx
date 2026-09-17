@@ -13,30 +13,12 @@ export function MockCheckoutForm({ lessonPackage }: { lessonPackage: LessonPacka
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [card, setCard] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setError(null);
-
-    const digits = card.replace(/\s/g, "");
-    if (digits.length < 13) {
-      setError("Enter a card number to simulate payment. Nothing is charged.");
-      return;
-    }
-    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
-      setError("Expiry should look like 09/28.");
-      return;
-    }
-    if (cvc.length < 3) {
-      setError("Add a CVC. It never leaves this browser except as a local mock.");
-      return;
-    }
-
     setPending(true);
     try {
       const response = await fetch("/api/checkout/mock", {
@@ -46,11 +28,11 @@ export function MockCheckoutForm({ lessonPackage }: { lessonPackage: LessonPacka
       });
       const data = (await response.json()) as { error?: string; redirect?: string };
       if (!response.ok || !data.redirect) {
-        throw new Error(data.error || "Mock payment failed.");
+        throw new Error(data.error || "Could not record this request.");
       }
       router.push(data.redirect);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Mock payment failed.");
+      setError(cause instanceof Error ? cause.message : "Could not record this request.");
       setPending(false);
     }
   }
@@ -58,82 +40,47 @@ export function MockCheckoutForm({ lessonPackage }: { lessonPackage: LessonPacka
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <Alert>
-        <AlertTitle>Local payment sandbox</AlertTitle>
+        <AlertTitle>Pay by Interac e-Transfer before the session</AlertTitle>
         <AlertDescription>
-          Stripe keys are not set, so this page stands in for Checkout. No charge is sent
-          anywhere. Add <code className="font-mono text-xs">STRIPE_SECRET_KEY</code> to use live
-          Stripe Checkout instead.
+          This local preview records the request. It does not move money. On the live offer you
+          send Interac e-Transfer before the Zoom session. 24-hour cancellation policy.
         </AlertDescription>
       </Alert>
 
       {error ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Payment not submitted</AlertTitle>
+          <AlertTitle>Request not recorded</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : null}
 
       <div className="space-y-2">
-        <Label htmlFor="name">Name on card</Label>
+        <Label htmlFor="name">Your name</Label>
         <Input
           id="name"
           className="h-10"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="Alex North"
+          placeholder="Your name"
           required
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="receipt-email">Receipt email</Label>
+        <Label htmlFor="receipt-email">Your email</Label>
         <Input
           id="receipt-email"
           type="email"
           className="h-10"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder="alex@example.com"
+          placeholder="you@example.com"
           required
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="card">Card number</Label>
-        <Input
-          id="card"
-          inputMode="numeric"
-          autoComplete="off"
-          className="h-10"
-          value={card}
-          onChange={(event) => setCard(event.target.value)}
-          placeholder="4242 4242 4242 4242"
-        />
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="expiry">Expiry</Label>
-          <Input
-            id="expiry"
-            className="h-10"
-            value={expiry}
-            onChange={(event) => setExpiry(event.target.value)}
-            placeholder="09/28"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="cvc">CVC</Label>
-          <Input
-            id="cvc"
-            className="h-10"
-            value={cvc}
-            onChange={(event) => setCvc(event.target.value)}
-            placeholder="123"
-          />
-        </div>
-      </div>
 
       <Button type="submit" disabled={pending} className="h-11 w-full px-4">
-        {pending ? "Confirming…" : `Pay ${formatUsd(lessonPackage.priceCents)} (mock)`}
+        {pending ? "Recording…" : `Confirm ${formatUsd(lessonPackage.priceCents)} request`}
       </Button>
     </form>
   );

@@ -8,12 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { getSubject, getTutor, subjects, tutors } from "@/lib/catalog";
+import { subjects } from "@/lib/catalog";
 import { slotsForDate, upcomingDays } from "@/lib/slots";
 import { cn } from "@/lib/utils";
 
 const selectClassName = cn(
-  "h-10 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none",
+  "h-10 w-full rounded-lg border border-input bg-background px-2.5 text-sm text-foreground outline-none",
   "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
   "disabled:cursor-not-allowed disabled:opacity-50"
 );
@@ -35,7 +35,7 @@ type Confirmation = {
 export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormProps) {
   const days = useMemo(() => upcomingDays(12), []);
   const [subjectId, setSubjectId] = useState(initialSubjectId ?? "");
-  const [tutorId, setTutorId] = useState(initialTutorId ?? "");
+  const [tutorId, setTutorId] = useState(initialTutorId ?? "asa");
   const [date, setDate] = useState(days[0]?.iso ?? "");
   const [slotId, setSlotId] = useState("");
   const [name, setName] = useState("");
@@ -45,21 +45,12 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
   const [error, setError] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
 
-  const subject = getSubject(subjectId);
-  const availableTutors = subject
-    ? tutors.filter((tutor) => subject.tutorIds.includes(tutor.id))
-    : tutors;
-
   const slots = date ? slotsForDate(date) : [];
   const openSlots = slots.filter((slot) => slot.available);
 
   function onSubjectChange(next: string | null) {
-    const value = next ?? "";
-    setSubjectId(value);
-    const nextSubject = getSubject(value);
-    if (nextSubject && !nextSubject.tutorIds.includes(tutorId)) {
-      setTutorId("");
-    }
+    setSubjectId(next ?? "");
+    setTutorId("asa");
   }
 
   async function onSubmit(event: React.FormEvent) {
@@ -101,13 +92,13 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             {confirmation.subject} with {confirmation.tutor} on {confirmation.slotLabel}.
           </p>
           <p>
-            A confirmation will go to {confirmation.email}. Bring any recent quiz, FRQ, or SAT
-            module so the first hour is not a fishing expedition.
+            A confirmation will go to {confirmation.email}. Pay by Interac e-Transfer before the
+            session. 24-hour cancellation policy.
           </p>
           <p className="text-sm text-muted-foreground">
             {confirmation.storage === "supabase"
               ? "This hold is saved in Supabase."
-              : "This hold is in server memory until you connect Supabase or Calendly. Restarting the app clears it."}
+              : "This hold is in server memory until you connect Supabase. Restarting the app clears it."}
           </p>
         </AlertDescription>
       </Alert>
@@ -137,7 +128,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email">Parent or student email</Label>
+          <Label htmlFor="email">Your email</Label>
           <Input
             id="email"
             type="email"
@@ -152,7 +143,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="subject">Subject</Label>
+          <Label htmlFor="subject">Course</Label>
           <select
             id="subject"
             name="subject"
@@ -161,7 +152,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             onChange={(event) => onSubjectChange(event.target.value)}
             required
           >
-            <option value="">Choose a subject</option>
+            <option value="">Choose a course</option>
             {subjects.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
@@ -171,29 +162,10 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
         </div>
         <div className="space-y-2">
           <Label htmlFor="tutor">Tutor</Label>
-          <select
-            id="tutor"
-            name="tutor"
-            className={selectClassName}
-            value={tutorId}
-            onChange={(event) => setTutorId(event.target.value)}
-            disabled={!subject}
-            required
-          >
-            <option value="">
-              {subject ? "Choose a tutor" : "Pick a subject first"}
-            </option>
-            {availableTutors.map((tutor) => (
-              <option key={tutor.id} value={tutor.id}>
-                {tutor.name} — {tutor.role}
-              </option>
-            ))}
-          </select>
-          {subject && tutorId && !subject.tutorIds.includes(tutorId) ? (
-            <p className="text-sm text-destructive">
-              {getTutor(tutorId)?.name} does not take {subject.name}.
-            </p>
-          ) : null}
+          <input type="hidden" id="tutor" name="tutor" value={tutorId} />
+          <p className="flex h-10 items-center rounded-lg border border-input px-2.5 text-sm">
+            Asa Nichols
+          </p>
         </div>
       </div>
 
@@ -201,9 +173,9 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
         <Label htmlFor="day">Day</Label>
         {days.length === 0 ? (
           <Alert>
-            <AlertTitle>No studio days on the calendar</AlertTitle>
+            <AlertTitle>No Zoom days on this calendar</AlertTitle>
             <AlertDescription>
-              Northline is closed Friday and Sunday. Check back on a weekday afternoon.
+              This preview calendar skips Friday and Sunday. Try another day.
             </AlertDescription>
           </Alert>
         ) : (
@@ -228,7 +200,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
       </div>
 
       <div className="space-y-3">
-        <Label>Time (Pacific)</Label>
+        <Label>Time</Label>
         {openSlots.length === 0 ? (
           <Alert>
             <AlertTitle>No open slots this day</AlertTitle>
@@ -251,7 +223,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
               >
                 <RadioGroupItem value={slot.id} disabled={!slot.available} />
                 <span className="text-sm">
-                  {slot.time} PT
+                  {slot.time}
                   {!slot.available ? (
                     <span className="ml-2 text-muted-foreground">Held</span>
                   ) : null}
@@ -268,7 +240,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
           id="notes"
           value={notes}
           onChange={(event) => setNotes(event.target.value)}
-          placeholder="Example: related rates, Module 2 timing, or a personal statement that still reads like a résumé."
+          placeholder="Optional: the Western course week or problem set you want to cover."
         />
       </div>
 

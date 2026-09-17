@@ -6,7 +6,7 @@ import { getPackage } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Checkout canceled",
+  title: "Request canceled",
 };
 
 export default async function CancelPage({
@@ -20,11 +20,11 @@ export default async function CancelPage({
   return (
     <div className="mx-auto max-w-lg px-4 py-16 sm:px-6">
       <Alert>
-        <AlertTitle>Checkout stopped</AlertTitle>
+        <AlertTitle>Request stopped</AlertTitle>
         <AlertDescription>
           {lessonPackage
-            ? `No charge for ${lessonPackage.name}. The hours are still available if you want them.`
-            : "No charge went through. You can pick a pack whenever you’re ready."}
+            ? `No Interac e-Transfer was requested for ${lessonPackage.name}.`
+            : "No Interac e-Transfer was requested."}
         </AlertDescription>
       </Alert>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -32,10 +32,10 @@ export default async function CancelPage({
           href={lessonPackage ? `/packages#${lessonPackage.id}` : "/packages"}
           className={cn(buttonVariants({ size: "lg" }), "h-11 px-5")}
         >
-          Return to packages
+          Return to rates
         </Link>
         <Link href="/book" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 px-5")}>
-          Book a diagnostic first
+          Book a Zoom lesson
         </Link>
       </div>
     </div>

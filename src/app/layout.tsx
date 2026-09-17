@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Figtree, Newsreader } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { studio } from "@/lib/catalog";
+import { DISCLAIMER, studio } from "@/lib/catalog";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -17,11 +17,10 @@ const newsreader = Newsreader({
 
 export const metadata: Metadata = {
   title: {
-    default: `${studio.name} — SAT, AP, essays, and CS tutoring in Seattle`,
+    default: `${studio.name} — weekly Zoom tutoring for Western courses`,
     template: `%s · ${studio.name}`,
   },
-  description:
-    "Northline Tutors is a Fremont studio for SAT Math, AP Calculus, AP Chemistry, college essays, and intro CS. Buy a lesson pack and book a diagnostic hour.",
+  description: `${studio.headline} Weekly Zoom tutoring for ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, and BUS 1220. ${DISCLAIMER}`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

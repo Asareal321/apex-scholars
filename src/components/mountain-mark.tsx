@@ -1,0 +1,9 @@
+export function MountainMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden className={className}>
+      <rect width="32" height="32" rx="6" fill="#0b1b33" />
+      <path d="M3 25 L11.5 11 L16 18.5 L21 8 L29 25 Z" fill="#d4af37" />
+      <path d="M12.5 25 L16 18 L19.5 25 Z" fill="#0b1b33" />
+    </svg>
+  );
+}

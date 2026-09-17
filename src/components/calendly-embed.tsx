@@ -51,7 +51,7 @@ export function CalendlyEmbed({
         </div>
       ) : null}
       <iframe
-        title="Northline Tutors calendar"
+        title="Apex Scholars calendar"
         src={src}
         className="h-[720px] w-full"
         onLoad={() => setLoaded(true)}

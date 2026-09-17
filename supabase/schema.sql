@@ -1,5 +1,5 @@
--- Northline Tutors: run this in the Supabase SQL editor.
--- The site keeps working from local catalog + memory if these tables are missing.
+-- Apex Scholars: run this in the Supabase SQL editor.
+-- The site keeps working from the local catalog + memory if these tables are missing.
 
 create table if not exists packages (
   id text primary key,
@@ -13,8 +13,11 @@ create table if not exists packages (
   includes text[] not null default '{}',
   best_for text not null,
   featured boolean not null default false,
+  group_size text,
   sort_order int not null default 0
 );
+
+alter table packages add column if not exists group_size text;
 
 create table if not exists bookings (
   id uuid primary key default gen_random_uuid(),
@@ -49,8 +52,6 @@ alter table packages enable row level security;
 alter table bookings enable row level security;
 alter table payments enable row level security;
 
--- Server routes use the service role key (bypasses RLS). These policies
--- cover the anon key if you prefer not to use the service role locally.
 drop policy if exists "public read packages" on packages;
 create policy "public read packages"
   on packages for select
@@ -76,70 +77,58 @@ create policy "server update payments"
   using (true)
   with check (true);
 
+delete from packages where id in ('diagnostic', 'sprint', 'foundation', 'semester');
+
 insert into packages (
   id, name, sessions, minutes, price_cents, per_session_cents,
-  headline, description, includes, best_for, featured, sort_order
+  headline, description, includes, best_for, featured, group_size, sort_order
 ) values
   (
-    'diagnostic',
-    'Diagnostic hour',
-    1, 50, 8500, 8500,
-    'Find the actual hole before you buy a pack.',
-    'A 50-minute working session plus a written plan. We watch the student solve, name the gaps, and recommend a package — or tell you tutoring is not the next move.',
+    'one-on-one-60',
+    '1-on-1 · 60 minutes',
+    1, 60, 4000, 4000,
+    '$40/hr on Zoom.',
+    'A 60-minute 1-on-1 Zoom session. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
     array[
-      '50-minute Zoom or in-studio session',
-      'One-page written plan sent within 24 hours',
-      'Package recommendation with a realistic timeline',
-      'Credit the $85 toward a Four-week sprint or larger pack within 14 days'
+      '60 minutes, 1-on-1',
+      'Zoom only',
+      'Interac e-Transfer before the session',
+      '24-hour cancellation policy'
     ],
-    'Families who are not sure whether the issue is content, timing, or the class itself.',
-    false, 1
+    'Weekly 1-on-1 in one of the six Western courses Apex tutors.',
+    true, null, 1
   ),
   (
-    'sprint',
-    'Four-week sprint',
-    4, 50, 36000, 9000,
-    'A unit test, a SAT date, or four weeks to stabilize.',
-    'Four 50-minute sessions over about a month. Tight homework, a shared error log, and a last-session recap you can hand to a parent or counselor.',
+    'one-on-one-30',
+    '1-on-1 · 30 minutes',
+    1, 30, 2000, 4000,
+    'Same $40/hr rate, shorter slot.',
+    'An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
     array[
-      'Four 50-minute sessions with the same tutor',
-      'Targeted homework between meetings (20–30 minutes)',
-      'Shared error log in a simple Google Doc',
-      'End-of-sprint recap with next-step options'
+      '30 minutes, 1-on-1',
+      'Same $40/hr rate as the 60-minute session',
+      'Zoom only',
+      'Interac e-Transfer before the session',
+      '24-hour cancellation policy'
     ],
-    'A coming unit exam, a SAT 3–5 weeks out, or a student who just transferred into AP.',
-    false, 2
+    'A shorter weekly check-in when a full hour is more than you need.',
+    false, null, 2
   ),
   (
-    'foundation',
-    'Foundation pack',
-    8, 50, 68000, 8500,
-    'Weekly rhythm — the pack most families stay on.',
-    'Eight sessions, usually weekly. Mid-pack we send a short parent note so nobody is guessing about progress. This is the default for a full AP unit or a two-month SAT runway.',
+    'small-group',
+    'Small group · 3–5 students',
+    1, 60, 2000, 2000,
+    '$20 per student.',
+    'A small group of 3 to 5 students on Zoom. Assume 60 minutes. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
     array[
-      'Eight 50-minute sessions',
-      'Weekly homework and a living error log',
-      'Mid-pack parent note (email, ~150 words)',
-      'Score or quiz check-in using school or official practice material'
+      '3 to 5 students',
+      '$20 per student',
+      'Zoom only',
+      'Interac e-Transfer before the session',
+      '24-hour cancellation policy'
     ],
-    'A semester of AP Calc or Chem, or SAT prep that needs more than a crash course.',
-    true, 3
-  ),
-  (
-    'semester',
-    'Semester mentor',
-    16, 50, 192000, 12000,
-    'A tutor of record for the whole term.',
-    'Sixteen sessions plus two 20-minute parent conferences. We stay on the syllabus, catch slides early, and keep one adult in the loop without turning tutoring into a second homework police.',
-    array[
-      'Sixteen 50-minute sessions across the term',
-      'Two 20-minute parent conferences',
-      'Syllabus-aligned plan updated monthly',
-      'Priority booking for the same weekly slot',
-      'Exam-week extra materials (FRQ sets or SAT modules)'
-    ],
-    'A full AP course, a junior-year SAT season, or a student who needs a steady adult besides the classroom teacher.',
-    false, 4
+    'Classmates who want a weekly group hour in the same Western course.',
+    false, '3–5', 3
   )
 on conflict (id) do update set
   name = excluded.name,
@@ -152,4 +141,5 @@ on conflict (id) do update set
   includes = excluded.includes,
   best_for = excluded.best_for,
   featured = excluded.featured,
+  group_size = excluded.group_size,
   sort_order = excluded.sort_order;

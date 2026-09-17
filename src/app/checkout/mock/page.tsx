@@ -4,12 +4,12 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
 import { MockCheckoutForm } from "@/components/mock-checkout-form";
 import { FallbackBanner } from "@/components/fallback-banner";
-import { formatUsd, getPackage } from "@/lib/catalog";
+import { DISCLAIMER, formatUsd, getPackage } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Mock checkout",
-  description: "Local payment sandbox used when Stripe keys are not configured.",
+  title: "Confirm session",
+  description: "Record a Zoom session request. Pay by Interac e-Transfer before the session.",
 };
 
 export default async function MockCheckoutPage({
@@ -24,13 +24,13 @@ export default async function MockCheckoutPage({
     return (
       <div className="mx-auto max-w-lg px-4 py-16 sm:px-6">
         <Alert variant="destructive">
-          <AlertTitle>No package selected</AlertTitle>
+          <AlertTitle>No session selected</AlertTitle>
           <AlertDescription>
-            Checkout needs a pack. Pick one from the packages page and try again.
+            Pick a 1-on-1 or small-group rate, then confirm the request.
           </AlertDescription>
         </Alert>
         <Link href="/packages" className={cn(buttonVariants({ size: "lg" }), "mt-6 inline-flex h-10 px-4")}>
-          Browse packages
+          See rates
         </Link>
       </div>
     );
@@ -38,15 +38,17 @@ export default async function MockCheckoutPage({
 
   return (
     <div className="mx-auto max-w-lg px-4 py-12 sm:px-6">
-      <p className="text-xs tracking-[0.16em] text-primary uppercase">Checkout</p>
-      <h1 className="mt-2 text-4xl tracking-tight">Pay for {lessonPackage.name}</h1>
+      <p className="text-xs tracking-[0.16em] text-primary uppercase">Confirm</p>
+      <h1 className="mt-2 text-4xl tracking-tight">{lessonPackage.name}</h1>
       <p className="mt-3 text-muted-foreground">
-        {lessonPackage.sessions} × {lessonPackage.minutes} min · {formatUsd(lessonPackage.priceCents)}
+        {lessonPackage.minutes} min · {formatUsd(lessonPackage.priceCents)}
+        {lessonPackage.groupSize ? " per student" : ""}
       </p>
+      <p className="mt-2 text-sm text-muted-foreground">{DISCLAIMER}</p>
       <div className="mt-6">
-        <FallbackBanner stripe supabase />
+        <FallbackBanner supabase />
       </div>
-      <div className="rounded-xl border bg-card p-5 sm:p-8">
+      <div className="rounded-xl border border-border bg-card p-5 sm:p-8">
         <MockCheckoutForm lessonPackage={lessonPackage} />
       </div>
     </div>

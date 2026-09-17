@@ -72,7 +72,7 @@ export function slotsForDate(iso: string): TimeSlot[] {
         weekday: "short",
         month: "short",
         day: "numeric",
-      })} · ${formatTime(time)} PT`,
+      })} · ${formatTime(time)}`,
       time: formatTime(time),
       available: !taken,
     };

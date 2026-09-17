@@ -50,7 +50,7 @@ function mapPackageRow(row: Record<string, unknown>): LessonPackage | null {
     id,
     name: String(row.name ?? fallback?.name ?? "Lesson pack"),
     sessions: Number(row.sessions ?? fallback?.sessions ?? 1),
-    minutes: Number(row.minutes ?? fallback?.minutes ?? 50),
+        minutes: Number(row.minutes ?? fallback?.minutes ?? 60),
     priceCents: Number(row.price_cents ?? fallback?.priceCents ?? 0),
     perSessionCents: Number(row.per_session_cents ?? fallback?.perSessionCents ?? 0),
     headline: String(row.headline ?? fallback?.headline ?? ""),
@@ -59,7 +59,11 @@ function mapPackageRow(row: Record<string, unknown>): LessonPackage | null {
       ? (row.includes as string[])
       : fallback?.includes ?? [],
     bestFor: String(row.best_for ?? fallback?.bestFor ?? ""),
-    featured: Boolean(row.featured ?? fallback?.featured),
+        featured: Boolean(row.featured ?? fallback?.featured),
+        groupSize:
+          typeof row.group_size === "string"
+            ? row.group_size
+            : fallback?.groupSize,
   };
 }
 

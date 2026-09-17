@@ -28,6 +28,7 @@ export default function TutorsPage() {
         </span>
         <p className="mt-4 text-sm text-primary">{asa.focus}</p>
         <p className="mt-4 text-sm leading-7">{asa.credentials}</p>
+        <p className="mt-3 text-sm leading-7">{asa.bus1220Proof}</p>
         <p className="mt-4 text-sm text-muted-foreground">{DISCLAIMER}</p>
         <Link href="/book" className={cn(buttonVariants({ size: "lg" }), "mt-5 h-10 px-4")}>
           Book a Zoom lesson

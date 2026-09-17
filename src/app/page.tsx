@@ -105,6 +105,9 @@ export default function HomePage() {
               >
                 <h3 className="text-lg text-primary">{subject.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{subject.blurb}</p>
+                {subject.proof ? (
+                  <p className="mt-2 text-sm leading-6">{subject.proof}</p>
+                ) : null}
               </Link>
             ))}
           </div>
@@ -126,6 +129,7 @@ export default function HomePage() {
           <h2 className="mt-2 text-3xl tracking-tight">{asa.name}</h2>
           <p className="mt-2 text-muted-foreground">{asa.bio}</p>
           <p className="mt-3 max-w-3xl text-sm leading-6">{asa.credentials}</p>
+          <p className="mt-2 max-w-3xl text-sm leading-6">{asa.bus1220Proof}</p>
           <Link
             href="/tutors"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-6 h-10 px-4")}

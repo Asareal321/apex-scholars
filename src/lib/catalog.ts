@@ -3,8 +3,9 @@ export type Subject = {
   name: string;
   shortName: string;
   blurb: string;
-  details: string;
+    details: string;
   whoItsFor: string;
+  proof?: string;
   tutorIds: string[];
 };
 
@@ -15,6 +16,7 @@ export type Tutor = {
   focus: string;
   bio: string;
   credentials: string;
+  bus1220Proof: string;
   initials: string;
   accent: string;
 };
@@ -103,6 +105,8 @@ export const subjects: Subject[] = [
     details:
       "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking BUS 1220.",
+    proof:
+      "88 in BUS 1220 — a strong mark in that course. Got 10/10 in participation for 1220.",
     tutorIds: ["asa"],
   },
 ];
@@ -116,6 +120,8 @@ export const tutors: Tutor[] = [
     bio: "2nd-year BMOS, Ivey AEO candidate.",
     credentials:
       "100 in ECON 1021 · 100 in MATH 1229 · 98 in ECON 1022 · 96 in CALC 1000 · 95 in MOS 1023 · Dean's Honour List",
+    bus1220Proof:
+      "88 in BUS 1220 — a strong mark in that course. Got 10/10 in participation for 1220.",
     initials: "AN",
     accent: "bg-primary text-primary-foreground",
   },

@@ -21,6 +21,9 @@ export default function SubjectsPage() {
             <h2 className="text-2xl text-primary">{subject.name}</h2>
             <p className="mt-2 text-sm leading-7">{subject.details}</p>
             <p className="mt-3 text-sm text-muted-foreground">{subject.whoItsFor}</p>
+            {subject.proof ? (
+              <p className="mt-3 text-sm leading-7">{subject.proof}</p>
+            ) : null}
             <Link
               href={`/book?subject=${subject.id}`}
               className={cn(buttonVariants({ size: "lg" }), "mt-5 h-10 px-4")}

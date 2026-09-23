@@ -17,30 +17,12 @@ export type BookingInput = {
   notes: string;
 };
 
-export type PaymentInput = {
-  confirmation: string;
-  packageId: string;
-  packageName: string;
-  amountCents: number;
-  email: string;
-  name: string;
-  mode: "stripe" | "mock";
-  status: "paid" | "checkout_created";
-  stripeSessionId?: string;
-};
-
 export type StoredBooking = BookingInput & {
   createdAt: string;
   source: "supabase" | "memory";
 };
 
-export type StoredPayment = PaymentInput & {
-  createdAt: string;
-  source: "supabase" | "memory";
-};
-
 const memoryBookings: StoredBooking[] = [];
-const memoryPayments: StoredPayment[] = [];
 
 function mapPackageRow(row: Record<string, unknown>): LessonPackage | null {
   const id = String(row.id ?? "");
@@ -137,54 +119,9 @@ export async function saveBooking(input: BookingInput): Promise<StoredBooking> {
   return { ...record, source: "memory" };
 }
 
-export async function savePayment(input: PaymentInput): Promise<StoredPayment> {
-  const record: StoredPayment = {
-    ...input,
-    createdAt: new Date().toISOString(),
-    source: isSupabaseConfigured() ? "supabase" : "memory",
-  };
-
-  const client = getSupabase();
-  if (client) {
-    const { error } = await client.from("payments").upsert(
-      {
-        confirmation: input.confirmation,
-        package_id: input.packageId,
-        package_name: input.packageName,
-        amount_cents: input.amountCents,
-        email: input.email,
-        name: input.name,
-        mode: input.mode,
-        status: input.status,
-        stripe_session_id: input.stripeSessionId ?? null,
-      },
-      { onConflict: "confirmation" }
-    );
-    if (error) {
-      throw new Error(`Supabase could not save the payment: ${error.message}`);
-    }
-    return record;
-  }
-
-  const duplicate = memoryPayments.find(
-    (item) =>
-      item.confirmation === input.confirmation ||
-      (input.stripeSessionId && item.stripeSessionId === input.stripeSessionId)
-  );
-  if (duplicate) {
-    duplicate.status = input.status;
-    duplicate.email = input.email;
-    duplicate.name = input.name;
-    return duplicate;
-  }
-  memoryPayments.push(record);
-  return { ...record, source: "memory" };
-}
-
 export function memoryStats() {
   return {
     bookings: memoryBookings.length,
-    payments: memoryPayments.length,
     supabase: isSupabaseConfigured(),
   };
 }

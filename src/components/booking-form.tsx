@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { subjects } from "@/lib/catalog";
+import { CONTACT_EMAIL, subjects } from "@/lib/catalog";
 import { slotsForDate, upcomingDays } from "@/lib/slots";
 import { cn } from "@/lib/utils";
 
@@ -92,8 +92,11 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             {confirmation.subject} with {confirmation.tutor} on {confirmation.slotLabel}.
           </p>
           <p>
-            A confirmation will go to {confirmation.email}. Pay by Interac e-Transfer before the
-            session. 24-hour cancellation policy.
+            A confirmation will go to {confirmation.email}. Send an Interac e-Transfer to{" "}
+            <a className="font-medium text-primary underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
+              {CONTACT_EMAIL}
+            </a>{" "}
+            before the session. 24-hour cancellation policy.
           </p>
           <p className="text-sm text-muted-foreground">
             {confirmation.storage === "supabase"

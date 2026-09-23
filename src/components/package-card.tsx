@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CheckoutButton } from "@/components/checkout-button";
 import { formatUsd, type LessonPackage } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
@@ -65,7 +64,12 @@ export function PackageCard({
         </p>
       </CardContent>
       <CardFooter className="flex flex-col gap-2 sm:flex-row">
-        <CheckoutButton packageId={lessonPackage.id} />
+        <Link
+          href="/book"
+          className={cn(buttonVariants({ size: "lg" }), "h-10 w-full px-4")}
+        >
+          Book a Zoom lesson
+        </Link>
         {compact ? (
           <Link
             href="/packages"

@@ -36,6 +36,8 @@ export type LessonPackage = {
   groupSize?: string;
 };
 
+export const CONTACT_EMAIL = "asanichols07@gmail.com";
+
 export const DISCLAIMER = "Independent service. Not affiliated with Western University.";
 
 export const studio = {
@@ -43,7 +45,7 @@ export const studio = {
   shortName: "Apex",
   tagline: "Weekly Zoom tutoring for Western courses — not exam-cram only.",
   headline: "Midterms Coming? Don't Go In Blind.",
-  contactNote: "Contact details coming soon.",
+  email: CONTACT_EMAIL,
 };
 
 export const subjects: Subject[] = [
@@ -137,7 +139,7 @@ export const packages: LessonPackage[] = [
     perSessionCents: 4000,
     headline: "$40/hr on Zoom.",
     description:
-      "A 60-minute 1-on-1 Zoom session. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.",
+      "A 60-minute 1-on-1 Zoom session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "60 minutes, 1-on-1",
       "Zoom only",
@@ -156,7 +158,7 @@ export const packages: LessonPackage[] = [
     perSessionCents: 4000,
     headline: "Same $40/hr rate, shorter slot.",
     description:
-      "An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.",
+      "An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "30 minutes, 1-on-1",
       "Same $40/hr rate as the 60-minute session",
@@ -175,7 +177,7 @@ export const packages: LessonPackage[] = [
     perSessionCents: 2000,
     headline: "$20 per student.",
     description:
-      "A small group of 3 to 5 students on Zoom. Assume 60 minutes. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.",
+      "A small group of 3 to 5 students on Zoom. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "3 to 5 students",
       "$20 per student",
@@ -211,7 +213,7 @@ export const faqs = [
   },
   {
     q: "How do I pay?",
-    a: "Pay by Interac e-Transfer before the session. 24-hour cancellation policy.",
+    a: "Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.",
   },
 ];
 

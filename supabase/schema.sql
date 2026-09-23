@@ -32,25 +32,12 @@ create table if not exists bookings (
   created_at timestamptz not null default now()
 );
 
-create table if not exists payments (
-  id uuid primary key default gen_random_uuid(),
-  confirmation text unique not null,
-  package_id text not null,
-  package_name text not null,
-  amount_cents int not null,
-  email text not null,
-  name text not null,
-  mode text not null check (mode in ('stripe', 'mock')),
-  status text not null check (status in ('paid', 'checkout_created')),
-  stripe_session_id text unique,
-  created_at timestamptz not null default now()
-);
+drop table if exists payments;
 
 create index if not exists bookings_slot_id_idx on bookings (slot_id);
 
 alter table packages enable row level security;
 alter table bookings enable row level security;
-alter table payments enable row level security;
 
 drop policy if exists "public read packages" on packages;
 create policy "public read packages"
@@ -64,19 +51,6 @@ create policy "server insert bookings"
   to anon, authenticated
   with check (true);
 
-drop policy if exists "server insert payments" on payments;
-create policy "server insert payments"
-  on payments for insert
-  to anon, authenticated
-  with check (true);
-
-drop policy if exists "server update payments" on payments;
-create policy "server update payments"
-  on payments for update
-  to anon, authenticated
-  using (true)
-  with check (true);
-
 delete from packages where id in ('diagnostic', 'sprint', 'foundation', 'semester');
 
 insert into packages (
@@ -88,7 +62,7 @@ insert into packages (
     '1-on-1 · 60 minutes',
     1, 60, 4000, 4000,
     '$40/hr on Zoom.',
-    'A 60-minute 1-on-1 Zoom session. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
+    'A 60-minute 1-on-1 Zoom session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '60 minutes, 1-on-1',
       'Zoom only',
@@ -103,7 +77,7 @@ insert into packages (
     '1-on-1 · 30 minutes',
     1, 30, 2000, 4000,
     'Same $40/hr rate, shorter slot.',
-    'An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
+    'An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '30 minutes, 1-on-1',
       'Same $40/hr rate as the 60-minute session',
@@ -119,7 +93,7 @@ insert into packages (
     'Small group · 3–5 students',
     1, 60, 2000, 2000,
     '$20 per student.',
-    'A small group of 3 to 5 students on Zoom. Assume 60 minutes. Pay by Interac e-Transfer before the session. Cancel at least 24 hours ahead.',
+    'A small group of 3 to 5 students on Zoom. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '3 to 5 students',
       '$20 per student',

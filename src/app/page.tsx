@@ -68,7 +68,7 @@ export default function HomePage() {
               </div>
             </dl>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              Pay by Interac e-Transfer before the session. 24-hour cancellation policy.
+              Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.
             </p>
           </aside>
         </div>
@@ -155,7 +155,7 @@ export default function HomePage() {
         <div className="mt-10 rounded-xl border border-primary/30 bg-secondary/50 p-6">
           <p className="font-heading text-2xl">Book a Zoom lesson</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Pay by Interac e-Transfer before the session. 24-hour cancellation policy.
+            Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.
           </p>
           <Link href="/book" className={cn(buttonVariants({ size: "lg" }), "mt-4 inline-flex h-11 px-5")}>
             Hold a slot

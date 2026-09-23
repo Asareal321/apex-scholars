@@ -6,7 +6,7 @@ import { DISCLAIMER, getSubject } from "@/lib/catalog";
 export const metadata: Metadata = {
   title: "Book a Zoom lesson",
   description:
-    "Hold a weekly Zoom slot with Apex Scholars. Pay by Interac e-Transfer before the session. 24-hour cancellation policy.",
+    "Hold a weekly Zoom slot with Apex Scholars. Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.",
 };
 
 export const dynamic = "force-dynamic";
@@ -25,8 +25,8 @@ export default async function BookPage({
       <h1 className="mt-2 text-4xl tracking-tight">Book a Zoom lesson</h1>
       <p className="mt-4 text-lg leading-8 text-muted-foreground">
         {subject
-          ? `Weekly tutoring for ${subject.name}. Pay by Interac e-Transfer before the session.`
-          : "Pick a Western course and a Zoom time. Pay by Interac e-Transfer before the session. 24-hour cancellation policy."}
+          ? `Weekly tutoring for ${subject.name}. Send an Interac e-Transfer to asanichols07@gmail.com before the session.`
+          : "Pick a Western course and a Zoom time. Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy."}
       </p>
       <p className="mt-2 text-sm text-muted-foreground">{DISCLAIMER}</p>
       <div className="mt-8">

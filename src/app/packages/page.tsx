@@ -22,7 +22,7 @@ export default async function PackagesPage() {
         $40/hr 1-on-1. $20 per student in a group of 3–5.
       </h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
-        Pay by Interac e-Transfer before the session. 24-hour cancellation policy. {DISCLAIMER}
+        Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy. {DISCLAIMER}
       </p>
       <div className="mt-8">
         <FallbackBanner supabase />

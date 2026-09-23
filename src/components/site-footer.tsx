@@ -13,8 +13,15 @@ export function SiteFooter() {
         </div>
         <div className="text-sm">
           <p className="text-xs tracking-[0.14em] text-primary uppercase">Contact</p>
-          <p className="mt-2 text-muted-foreground">{studio.contactNote}</p>
-          <p className="mt-3 text-muted-foreground">Zoom only · Interac e-Transfer before the session</p>
+          <a
+            className="mt-2 inline-block text-foreground underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+            href={`mailto:${studio.email}`}
+          >
+            {studio.email}
+          </a>
+          <p className="mt-3 text-muted-foreground">
+            Zoom only · Interac e-Transfer to {studio.email} before the session
+          </p>
         </div>
         <div className="text-sm">
           <p className="text-xs tracking-[0.14em] text-primary uppercase">Start</p>

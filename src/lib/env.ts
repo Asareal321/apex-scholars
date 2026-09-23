@@ -1,5 +1,39 @@
+export type CalendlySessionType = "60" | "30" | "group";
+
+export const CALENDLY_SESSION_TYPES: { id: CalendlySessionType; label: string; detail: string }[] = [
+  { id: "60", label: "1-on-1 · 60 min", detail: "$40" },
+  { id: "30", label: "1-on-1 · 30 min", detail: "$20" },
+  { id: "group", label: "Small group", detail: "$20 / student" },
+];
+
+function readCalendlyUrl(value: string | undefined) {
+  const raw = value?.trim();
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 export function getCalendlyUrl() {
-  return process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || null;
+  return readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL);
+}
+
+export function getCalendlyTypeUrls(): Partial<Record<CalendlySessionType, string>> {
+  const urls: Partial<Record<CalendlySessionType, string>> = {};
+  const url60 = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_60);
+  const url30 = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_30);
+  const urlGroup = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_GROUP);
+  if (url60) urls["60"] = url60;
+  if (url30) urls["30"] = url30;
+  if (urlGroup) urls.group = urlGroup;
+  return urls;
+}
+
+export function isCalendlyConfigured() {
+  return Boolean(getCalendlyUrl() || Object.keys(getCalendlyTypeUrls()).length);
 }
 
 export function getSupabaseUrl() {
@@ -25,7 +59,7 @@ export function isSupabaseConfigured() {
 
 export function getIntegrations() {
   return {
-    calendly: Boolean(getCalendlyUrl()),
+    calendly: isCalendlyConfigured(),
     supabase: isSupabaseConfigured(),
   };
 }

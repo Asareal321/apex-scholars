@@ -222,6 +222,17 @@ export function getPackage(id: string | null | undefined) {
   return packages.find((item) => item.id === id);
 }
 
+const packageBookingTypes: Record<string, string> = {
+  "one-on-one-60": "60",
+  "one-on-one-30": "30",
+  "small-group": "group",
+};
+
+export function bookingHrefForPackage(id: string) {
+  const type = packageBookingTypes[id];
+  return type ? `/book?type=${type}` : "/book";
+}
+
 export function getSubject(id: string | null | undefined) {
   if (!id) return undefined;
   return subjects.find((item) => item.id === id);

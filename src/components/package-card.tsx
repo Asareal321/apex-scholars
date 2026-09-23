@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatUsd, type LessonPackage } from "@/lib/catalog";
+import { bookingHrefForPackage, formatUsd, type LessonPackage } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 export function PackageCard({
@@ -65,7 +65,7 @@ export function PackageCard({
       </CardContent>
       <CardFooter className="flex flex-col gap-2 sm:flex-row">
         <Link
-          href="/book"
+          href={bookingHrefForPackage(lessonPackage.id)}
           className={cn(buttonVariants({ size: "lg" }), "h-10 w-full px-4")}
         >
           Book a Zoom lesson

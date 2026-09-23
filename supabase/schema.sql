@@ -91,12 +91,12 @@ insert into packages (
   (
     'small-group',
     'Small group · 3–5 students',
-    1, 60, 2000, 2000,
-    '$20 per student.',
+    1, 60, 3000, 3000,
+    '$30 per student.',
     'A small group of 3 to 5 students over Google Meet. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '3 to 5 students',
-      '$20 per student',
+      '$30 per student',
       'Online over Google Meet',
       'Interac e-Transfer before the session',
       '24-hour cancellation policy'

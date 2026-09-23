@@ -84,13 +84,11 @@ export default async function BookPage({
                   );
                 })}
               </div>
-              {calendlyUrl === baseUrl ? (
+              {selectedType ? null : (
                 <p className="text-sm text-muted-foreground">
-                  {selectedType
-                    ? `Choose the ${CALENDLY_SESSION_TYPES.find((item) => item.id === selectedType)?.label} option in the calendar below. Not listed? Email ${CONTACT_EMAIL}.`
-                    : "Or choose any session type in the calendar below."}
+                  Or choose any session type in the calendar below.
                 </p>
-              ) : null}
+              )}
             </nav>
           ) : null}
           <CalendlyEmbed

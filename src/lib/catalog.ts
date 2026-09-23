@@ -173,14 +173,14 @@ export const packages: LessonPackage[] = [
     name: "Small group · 3–5 students",
     sessions: 1,
     minutes: 60,
-    priceCents: 2000,
-    perSessionCents: 2000,
-    headline: "$20 per student.",
+    priceCents: 3000,
+    perSessionCents: 3000,
+    headline: "$30 per student.",
     description:
       "A small group of 3 to 5 students over Google Meet. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "3 to 5 students",
-      "$20 per student",
+      "$30 per student",
       "Online over Google Meet",
       "Interac e-Transfer before the session",
       "24-hour cancellation policy",
@@ -209,7 +209,7 @@ export const faqs = [
   },
   {
     q: "What does it cost?",
-    a: "1-on-1 is $40/hr for 60 minutes, with an optional 30-minute session at the same hourly rate. Small group (3 to 5 students) is $20 per student.",
+    a: "1-on-1 is $40/hr for 60 minutes, with an optional 30-minute session at the same hourly rate. Small group (3 to 5 students) is $30 per student.",
   },
   {
     q: "How do I pay?",

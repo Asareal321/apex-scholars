@@ -61,7 +61,7 @@ export default function HomePage() {
               </div>
               <div className="rounded-xl bg-secondary p-4">
                 <dt className="text-muted-foreground">Group 3–5</dt>
-                <dd className="font-heading text-3xl text-primary">$20</dd>
+                <dd className="font-heading text-3xl text-primary">$30</dd>
                 <p className="mt-1 text-xs text-muted-foreground">per student</p>
               </div>
             </dl>

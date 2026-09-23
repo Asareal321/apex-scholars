@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div>
           <p className="font-heading text-xl text-primary">{studio.name}</p>
           <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-            Weekly Google Meet tutoring for six Western courses.
+            Peer tutoring for Western students, from a tutor who took the same courses.
           </p>
         </div>
         <div className="text-sm">
@@ -19,21 +19,23 @@ export function SiteFooter() {
           >
             {studio.email}
           </a>
-          <p className="mt-3 text-muted-foreground">
-            Online over Google Meet · Interac e-Transfer to {studio.email} before the session
-          </p>
         </div>
         <div className="text-sm">
           <p className="text-xs tracking-[0.14em] text-primary uppercase">Start</p>
           <ul className="mt-2 space-y-2">
             <li>
               <Link className="text-foreground underline decoration-primary/40 underline-offset-4 hover:decoration-primary" href="/book">
-                Book a Google Meet lesson
+                Book a session
+              </Link>
+            </li>
+            <li>
+              <Link className="text-foreground underline decoration-primary/40 underline-offset-4 hover:decoration-primary" href="/subjects">
+                Courses
               </Link>
             </li>
             <li>
               <Link className="text-foreground underline decoration-primary/40 underline-offset-4 hover:decoration-primary" href="/packages">
-                Rates
+                Rates and policies
               </Link>
             </li>
             <li>

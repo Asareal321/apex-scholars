@@ -95,7 +95,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             <a className="font-medium text-primary underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
               {CONTACT_EMAIL}
             </a>{" "}
-            before the session. 24-hour cancellation policy.
+            at least 24 hours before the session. No payment, no session.
           </p>
         </AlertDescription>
       </Alert>
@@ -201,7 +201,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             <AlertTitle>No open slots this day</AlertTitle>
             <AlertDescription>
               {date
-                ? `Every remaining hour is already held. Try another day, or email ${CONTACT_EMAIL}.`
+                ? `Every remaining slot is already held. Try another day, or email ${CONTACT_EMAIL}.`
                 : "Pick a day to see open times."}
             </AlertDescription>
           </Alert>
@@ -235,7 +235,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
           id="notes"
           value={notes}
           onChange={(event) => setNotes(event.target.value)}
-          placeholder="Optional: the Western course week or problem set you want to cover."
+          placeholder="Optional: the lecture, case or assignment you want to cover."
         />
       </div>
 

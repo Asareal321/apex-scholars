@@ -47,9 +47,6 @@ export function PackageCard({
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
-        {!compact ? (
-          <p className="text-sm leading-6 text-foreground/80">{lessonPackage.description}</p>
-        ) : null}
         <ul className="space-y-2 text-sm">
           {lessonPackage.includes.slice(0, compact ? 3 : undefined).map((item) => (
             <li key={item} className="flex gap-2">
@@ -68,7 +65,7 @@ export function PackageCard({
           href={bookingHrefForPackage(lessonPackage.id)}
           className={cn(buttonVariants({ size: "lg" }), "h-10 w-full px-4")}
         >
-          Book a Google Meet lesson
+          {lessonPackage.groupSize ? "Book a group session" : `Book ${lessonPackage.minutes} minutes`}
         </Link>
         {compact ? (
           <Link

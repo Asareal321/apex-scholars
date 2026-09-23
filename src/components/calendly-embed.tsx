@@ -124,7 +124,7 @@ export function CalendlyEmbed({
       ) : null}
       {embedDomain ? (
         <iframe
-          title="Book a Google Meet lesson with Apex Scholars on Calendly"
+          title="Book a session with Apex Scholars on Calendly"
           src={buildSrc(url, embedDomain, courseCode)}
           className="block w-full"
           style={{ height: frameHeight }}

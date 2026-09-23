@@ -61,15 +61,13 @@ insert into packages (
     'one-on-one-60',
     '1-on-1 · 60 minutes',
     1, 60, 4000, 4000,
-    '$40/hr over Google Meet.',
-    'A 60-minute 1-on-1 Google Meet session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'The standard weekly session.',
+    'A 60-minute 1-on-1 session on Google Meet.',
     array[
       '60 minutes, 1-on-1',
-      'Online over Google Meet',
-      'Interac e-Transfer before the session',
-      '24-hour cancellation policy'
+      'Keep the same slot every week'
     ],
-    'Weekly 1-on-1 in one of the six Western courses Apex tutors.',
+    'Steady weekly help in one course, all term.',
     true, null, 1
   ),
   (
@@ -77,31 +75,25 @@ insert into packages (
     '1-on-1 · 30 minutes',
     1, 30, 2000, 4000,
     'Same $40/hr rate, shorter slot.',
-    'An optional 30-minute 1-on-1 Google Meet session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'A 30-minute 1-on-1 session on Google Meet at the same hourly rate.',
     array[
       '30 minutes, 1-on-1',
-      'Same $40/hr rate as the 60-minute session',
-      'Online over Google Meet',
-      'Interac e-Transfer before the session',
-      '24-hour cancellation policy'
+      'Same $40/hr rate as the full hour'
     ],
-    'A shorter weekly check-in when a full hour is more than you need.',
+    'A focused check-in when a full hour is more than you need.',
     false, null, 2
   ),
   (
     'small-group',
     'Small group · 3–5 students',
     1, 60, 3000, 3000,
-    '$30 per student.',
-    'A small group of 3 to 5 students over Google Meet. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'Bring your own study group.',
+    'A 60-minute session on Google Meet for a group of 3 to 5 students.',
     array[
-      '3 to 5 students',
-      '$30 per student',
-      'Online over Google Meet',
-      'Interac e-Transfer before the session',
-      '24-hour cancellation policy'
+      '60 minutes, 3 to 5 students',
+      'One booking and one payment per group'
     ],
-    'Classmates who want a weekly group hour in the same Western course.',
+    'Classmates in the same course who want to study together.',
     false, '3–5', 3
   )
 on conflict (id) do update set

@@ -17,10 +17,10 @@ const newsreader = Newsreader({
 
 export const metadata: Metadata = {
   title: {
-    default: `${studio.name} — weekly Google Meet tutoring for Western courses`,
+    default: `${studio.name} — tutoring for Western University courses`,
     template: `%s · ${studio.name}`,
   },
-  description: `${studio.headline} Weekly Google Meet tutoring for ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, and BUS 1220. ${DISCLAIMER}`,
+  description: `${studio.headline} 1-on-1 and small-group tutoring for ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, and BUS 1220. ${DISCLAIMER}`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

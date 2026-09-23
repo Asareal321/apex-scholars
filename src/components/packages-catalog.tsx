@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { PackageCard } from "@/components/package-card";
 import { CONTACT_EMAIL, type LessonPackage } from "@/lib/catalog";
 
@@ -69,12 +68,6 @@ export function PackagesCatalog({ packages }: { packages: LessonPackage[] }) {
           ))}
         </div>
       )}
-
-      <div className="mt-10 flex flex-wrap gap-2">
-        <Badge variant="outline">Interac e-Transfer before the session</Badge>
-        <Badge variant="outline">24-hour cancellation</Badge>
-        <Badge variant="outline">Online over Google Meet</Badge>
-      </div>
     </div>
   );
 }

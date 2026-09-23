@@ -61,11 +61,11 @@ insert into packages (
     'one-on-one-60',
     '1-on-1 · 60 minutes',
     1, 60, 4000, 4000,
-    '$40/hr on Zoom.',
-    'A 60-minute 1-on-1 Zoom session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    '$40/hr over Google Meet.',
+    'A 60-minute 1-on-1 Google Meet session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '60 minutes, 1-on-1',
-      'Zoom only',
+      'Online over Google Meet',
       'Interac e-Transfer before the session',
       '24-hour cancellation policy'
     ],
@@ -77,11 +77,11 @@ insert into packages (
     '1-on-1 · 30 minutes',
     1, 30, 2000, 4000,
     'Same $40/hr rate, shorter slot.',
-    'An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'An optional 30-minute 1-on-1 Google Meet session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '30 minutes, 1-on-1',
       'Same $40/hr rate as the 60-minute session',
-      'Zoom only',
+      'Online over Google Meet',
       'Interac e-Transfer before the session',
       '24-hour cancellation policy'
     ],
@@ -93,11 +93,11 @@ insert into packages (
     'Small group · 3–5 students',
     1, 60, 2000, 2000,
     '$20 per student.',
-    'A small group of 3 to 5 students on Zoom. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'A small group of 3 to 5 students over Google Meet. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '3 to 5 students',
       '$20 per student',
-      'Zoom only',
+      'Online over Google Meet',
       'Interac e-Transfer before the session',
       '24-hour cancellation policy'
     ],

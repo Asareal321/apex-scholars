@@ -68,7 +68,7 @@ export function PackageCard({
           href={bookingHrefForPackage(lessonPackage.id)}
           className={cn(buttonVariants({ size: "lg" }), "h-10 w-full px-4")}
         >
-          Book a Zoom lesson
+          Book a Google Meet lesson
         </Link>
         {compact ? (
           <Link

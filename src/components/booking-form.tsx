@@ -176,7 +176,7 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
         <Label htmlFor="day">Day</Label>
         {days.length === 0 ? (
           <Alert>
-            <AlertTitle>No Zoom days on this calendar</AlertTitle>
+            <AlertTitle>No Google Meet days on this calendar</AlertTitle>
             <AlertDescription>
               This preview calendar skips Friday and Sunday. Try another day.
             </AlertDescription>

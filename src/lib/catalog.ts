@@ -43,7 +43,7 @@ export const DISCLAIMER = "Independent service. Not affiliated with Western Univ
 export const studio = {
   name: "Apex Scholars",
   shortName: "Apex",
-  tagline: "Weekly Zoom tutoring for Western courses — not exam-cram only.",
+  tagline: "Weekly Google Meet tutoring for Western courses — not exam-cram only.",
   headline: "Midterms Coming? Don't Go In Blind.",
   email: CONTACT_EMAIL,
 };
@@ -53,9 +53,9 @@ export const subjects: Subject[] = [
     id: "econ-1021",
     name: "ECON 1021",
     shortName: "ECON 1021",
-    blurb: "Weekly Zoom tutoring for Western’s ECON 1021.",
+    blurb: "Weekly Google Meet tutoring for Western’s ECON 1021.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking ECON 1021.",
     tutorIds: ["asa"],
   },
@@ -63,9 +63,9 @@ export const subjects: Subject[] = [
     id: "econ-1022",
     name: "ECON 1022",
     shortName: "ECON 1022",
-    blurb: "Weekly Zoom tutoring for Western’s ECON 1022.",
+    blurb: "Weekly Google Meet tutoring for Western’s ECON 1022.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking ECON 1022.",
     tutorIds: ["asa"],
   },
@@ -73,9 +73,9 @@ export const subjects: Subject[] = [
     id: "math-1229",
     name: "MATH 1229",
     shortName: "MATH 1229",
-    blurb: "Weekly Zoom tutoring for Western’s MATH 1229.",
+    blurb: "Weekly Google Meet tutoring for Western’s MATH 1229.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking MATH 1229.",
     tutorIds: ["asa"],
   },
@@ -83,9 +83,9 @@ export const subjects: Subject[] = [
     id: "calc-1000",
     name: "CALC 1000",
     shortName: "CALC 1000",
-    blurb: "Weekly Zoom tutoring for Western’s CALC 1000.",
+    blurb: "Weekly Google Meet tutoring for Western’s CALC 1000.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking CALC 1000.",
     tutorIds: ["asa"],
   },
@@ -93,9 +93,9 @@ export const subjects: Subject[] = [
     id: "mos-1023",
     name: "MOS 1023",
     shortName: "MOS 1023",
-    blurb: "Weekly Zoom tutoring for Western’s MOS 1023.",
+    blurb: "Weekly Google Meet tutoring for Western’s MOS 1023.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking MOS 1023.",
     tutorIds: ["asa"],
   },
@@ -103,9 +103,9 @@ export const subjects: Subject[] = [
     id: "bus-1220",
     name: "BUS 1220",
     shortName: "BUS 1220",
-    blurb: "Weekly Zoom tutoring for Western’s BUS 1220.",
+    blurb: "Weekly Google Meet tutoring for Western’s BUS 1220.",
     details:
-      "1-on-1 or a small group of 3–5. Sessions are 60 minutes on Zoom, with an optional 30-minute 1-on-1 if you need a shorter slot.",
+      "1-on-1 or a small group of 3–5. Sessions are 60 minutes over Google Meet, with an optional 30-minute 1-on-1 if you need a shorter slot.",
     whoItsFor: "Western students taking BUS 1220.",
     proof:
       "88 in BUS 1220 ending with 10/10 in participation",
@@ -137,12 +137,12 @@ export const packages: LessonPackage[] = [
     minutes: 60,
     priceCents: 4000,
     perSessionCents: 4000,
-    headline: "$40/hr on Zoom.",
+    headline: "$40/hr over Google Meet.",
     description:
-      "A 60-minute 1-on-1 Zoom session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
+      "A 60-minute 1-on-1 Google Meet session. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "60 minutes, 1-on-1",
-      "Zoom only",
+      "Online over Google Meet",
       "Interac e-Transfer before the session",
       "24-hour cancellation policy",
     ],
@@ -158,11 +158,11 @@ export const packages: LessonPackage[] = [
     perSessionCents: 4000,
     headline: "Same $40/hr rate, shorter slot.",
     description:
-      "An optional 30-minute 1-on-1 Zoom session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
+      "An optional 30-minute 1-on-1 Google Meet session at the same hourly rate. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "30 minutes, 1-on-1",
       "Same $40/hr rate as the 60-minute session",
-      "Zoom only",
+      "Online over Google Meet",
       "Interac e-Transfer before the session",
       "24-hour cancellation policy",
     ],
@@ -177,11 +177,11 @@ export const packages: LessonPackage[] = [
     perSessionCents: 2000,
     headline: "$20 per student.",
     description:
-      "A small group of 3 to 5 students on Zoom. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
+      "A small group of 3 to 5 students over Google Meet. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "3 to 5 students",
       "$20 per student",
-      "Zoom only",
+      "Online over Google Meet",
       "Interac e-Transfer before the session",
       "24-hour cancellation policy",
     ],
@@ -201,11 +201,11 @@ export const faqs = [
   },
   {
     q: "Weekly or exam-cram only?",
-    a: "Primarily weekly tutoring for everyone, not exam-cram only. The midterm headline is the hook; weekly Zoom sessions are the year-round offer.",
+    a: "Primarily weekly tutoring for everyone, not exam-cram only. The midterm headline is the hook; weekly Google Meet sessions are the year-round offer.",
   },
   {
-    q: "Zoom or in person?",
-    a: "Zoom only.",
+    q: "Google Meet or in person?",
+    a: "Online over Google Meet only.",
   },
   {
     q: "What does it cost?",

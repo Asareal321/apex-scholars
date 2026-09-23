@@ -71,7 +71,7 @@ export function PackagesCatalog({
         <Alert className="mt-8">
           <AlertTitle>No in-person sessions</AlertTitle>
           <AlertDescription>
-            Apex Scholars is Zoom only. Choose All rates or 1-on-1 to book a Zoom lesson.
+            Apex Scholars runs online over Google Meet. Choose All rates or 1-on-1 to book a Google Meet lesson.
           </AlertDescription>
         </Alert>
       ) : (
@@ -87,7 +87,7 @@ export function PackagesCatalog({
       <div className="mt-10 flex flex-wrap gap-2">
         <Badge variant="outline">Interac e-Transfer before the session</Badge>
         <Badge variant="outline">24-hour cancellation</Badge>
-        <Badge variant="outline">Zoom only</Badge>
+        <Badge variant="outline">Online over Google Meet</Badge>
       </div>
     </div>
   );

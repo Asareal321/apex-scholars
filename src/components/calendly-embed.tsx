@@ -93,7 +93,7 @@ export function CalendlyEmbed({
           <AlertTitle>Calendly did not load</AlertTitle>
           <AlertDescription>
             The live calendar is unreachable from this browser. Use the request form below and Asa
-            will confirm your Zoom time by email.
+            will confirm your Google Meet time by email.
           </AlertDescription>
         </Alert>
         <div className="rounded-xl border border-border bg-card p-5 sm:p-8">
@@ -124,7 +124,7 @@ export function CalendlyEmbed({
       ) : null}
       {embedDomain ? (
         <iframe
-          title="Book a Zoom lesson with Apex Scholars on Calendly"
+          title="Book a Google Meet lesson with Apex Scholars on Calendly"
           src={buildSrc(url, embedDomain, courseCode)}
           className="block w-full"
           style={{ height: frameHeight }}

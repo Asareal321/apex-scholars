@@ -65,7 +65,7 @@ export function SiteHeader() {
             href="/book"
             className={cn(buttonVariants({ size: "lg" }), "hidden h-9 px-3 sm:inline-flex")}
           >
-            Book a Zoom lesson
+            Book a Google Meet lesson
           </Link>
           <Sheet>
             <SheetTrigger
@@ -107,7 +107,7 @@ export function SiteHeader() {
                   href="/book"
                   className={cn(buttonVariants({ size: "lg" }), "mt-3 h-10 justify-center")}
                 >
-                  Book a Zoom lesson
+                  Book a Google Meet lesson
                 </Link>
               </nav>
             </SheetContent>

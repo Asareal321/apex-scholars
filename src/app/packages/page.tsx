@@ -7,7 +7,7 @@ import { loadPackages } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Rates",
   description:
-    "1-on-1 Zoom tutoring at $40/hr (60 minutes, optional 30 minutes) and small groups of 3–5 at $20 per student. Interac e-Transfer before the session.",
+    "1-on-1 Google Meet tutoring at $40/hr (60 minutes, optional 30 minutes) and small groups of 3–5 at $20 per student. Interac e-Transfer before the session.",
 };
 
 export const dynamic = "force-dynamic";

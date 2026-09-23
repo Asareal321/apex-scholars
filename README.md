@@ -1,15 +1,15 @@
 # Apex Scholars
 
-Next.js site for Apex Scholars: weekly Zoom tutoring for six Western University courses. Independent service. Not affiliated with Western University.
+Next.js site for Apex Scholars: weekly Google Meet tutoring for six Western University courses. Independent service. Not affiliated with Western University.
 
 Production: [https://apex-scholars-bay.vercel.app](https://apex-scholars-bay.vercel.app)
 
-Payment is **Interac e-Transfer to asanichols07@gmail.com before the session** (24-hour cancellation). The site does not take payments online. Bookings go through Calendly when `NEXT_PUBLIC_CALENDLY_URL` (or a per-type link) is set; otherwise the in-app booking form holds a Zoom slot without any third-party credentials.
+Payment is **Interac e-Transfer to asanichols07@gmail.com before the session** (24-hour cancellation). The site does not take payments online. Bookings go through Calendly when `NEXT_PUBLIC_CALENDLY_URL` (or a per-type link) is set; otherwise the in-app booking form holds a Google Meet slot without any third-party credentials.
 
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS + shadcn/ui
-- Calendly inline embed for booking (in-app Zoom booking form as fallback)
+- Calendly inline embed for booking (in-app Google Meet booking form as fallback)
 - Optional Supabase for rates and bookings (local catalog + in-memory fallback if unset)
 - Deployable to Vercel; no Vercel credentials needed for local `npm run dev`
 
@@ -48,7 +48,7 @@ If any of the three per-type links is set, `/book` shows a session-type picker a
    - **1-on-1 · 60 min** (One-on-One)
    - **1-on-1 · 30 min** (One-on-One)
    - **Small group · 60 min** (Group, max 5 invitees)
-2. On each, set **Location** to **Zoom** (connect Zoom under Integrations first).
+2. In Calendly, connect **Google Calendar** (Integrations → Google Calendar), then set each event's **Location** to **Google Meet**. Calendly creates the Meet link and adds it to the calendar invite.
 3. Under **Invitee questions**, add **Which course?** as the *first* custom question (options: ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, BUS 1220). The site prefills it via `a1=<course code>` when the student arrives from a course link (`/book?subject=econ-1021`). If the question is missing, Calendly ignores the parameter.
 4. Under **Notifications and cancellation policy** / **Confirmation page**, add: "Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy." Add the same line to the confirmation email.
 5. Copy your profile link into `NEXT_PUBLIC_CALENDLY_URL` and/or each event link into the per-type variables.

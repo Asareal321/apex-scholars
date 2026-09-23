@@ -30,18 +30,18 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:py-20">
           <div>
             <p className="text-xs tracking-[0.18em] text-primary uppercase">
-              Western University courses · Zoom only
+              Western University courses · Online over Google Meet
             </p>
             <h1 className="mt-4 max-w-xl text-4xl leading-[1.1] tracking-tight text-balance sm:text-5xl lg:text-6xl">
               {studio.headline}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/80">
-              Weekly 1-on-1 and small-group Zoom tutoring for ECON 1021, ECON 1022, MATH 1229,
+              Weekly 1-on-1 and small-group Google Meet tutoring for ECON 1021, ECON 1022, MATH 1229,
               CALC 1000, MOS 1023, and BUS 1220.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/book" className={cn(buttonVariants({ size: "lg" }), "h-11 px-5")}>
-                Book a Zoom lesson
+                Book a Google Meet lesson
               </Link>
               <Link
                 href="/packages"
@@ -80,7 +80,7 @@ export default function HomePage() {
           Weekly tutoring, not exam-cram only.
         </h2>
         <p className="mt-4 max-w-2xl text-muted-foreground leading-7">
-          {studio.tagline} Book a Zoom lesson for the week, then keep the slot. Midterms are the
+          {studio.tagline} Book a Google Meet lesson for the week, then keep the slot. Midterms are the
           hook; the work is weekly.
         </p>
       </section>
@@ -153,7 +153,7 @@ export default function HomePage() {
           ))}
         </Accordion>
         <div className="mt-10 rounded-xl border border-primary/30 bg-secondary/50 p-6">
-          <p className="font-heading text-2xl">Book a Zoom lesson</p>
+          <p className="font-heading text-2xl">Book a Google Meet lesson</p>
           <p className="mt-2 text-sm text-muted-foreground">
             Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.
           </p>

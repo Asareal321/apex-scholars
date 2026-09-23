@@ -13,9 +13,9 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Book a Zoom lesson",
+  title: "Book a Google Meet lesson",
   description:
-    "Hold a weekly Zoom slot with Apex Scholars. Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.",
+    "Hold a weekly Google Meet slot with Apex Scholars. Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.",
 };
 
 export const dynamic = "force-dynamic";
@@ -46,13 +46,13 @@ export default async function BookPage({
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <p className="text-xs tracking-[0.16em] text-primary uppercase">Book</p>
-      <h1 className="mt-2 text-4xl tracking-tight">Book a Zoom lesson</h1>
+      <h1 className="mt-2 text-4xl tracking-tight">Book a Google Meet lesson</h1>
       <p className="mt-4 text-lg leading-8 text-muted-foreground">
         {subject
           ? `Weekly tutoring for ${subject.name}. ${PAYMENT_LINE}`
           : calendlyUrl
-            ? `Pick a session type and a Zoom time. ${PAYMENT_LINE}`
-            : `Pick a Western course and a Zoom time. ${PAYMENT_LINE}`}
+            ? `Pick a session type and a Google Meet time. ${PAYMENT_LINE}`
+            : `Pick a Western course and a Google Meet time. ${PAYMENT_LINE}`}
       </p>
       <p className="mt-2 text-sm text-muted-foreground">{DISCLAIMER}</p>
 

@@ -10,7 +10,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { MountainMark } from "@/components/mountain-mark";
 import { PackageCard } from "@/components/package-card";
 import {
-  DISCLAIMER,
   faqs,
   packages,
   studio,
@@ -50,7 +49,6 @@ export default function HomePage() {
                 See rates
               </Link>
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">{DISCLAIMER}</p>
           </div>
           <aside className="rounded-2xl border border-primary/30 bg-card p-6">
             <MountainMark className="size-12" />
@@ -80,8 +78,7 @@ export default function HomePage() {
           Weekly tutoring, not exam-cram only.
         </h2>
         <p className="mt-4 max-w-2xl text-muted-foreground leading-7">
-          {studio.tagline} Book a Google Meet lesson for the week, then keep the slot. Midterms are the
-          hook; the work is weekly.
+          {studio.tagline} Book a Google Meet lesson for the week, then keep the slot.
         </p>
       </section>
 
@@ -90,7 +87,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs tracking-[0.16em] text-primary uppercase">Courses</p>
-              <h2 className="mt-2 text-3xl tracking-tight">The complete list</h2>
+              <h2 className="mt-2 text-3xl tracking-tight">Six Western courses</h2>
             </div>
             <Link href="/subjects" className="text-sm font-medium text-primary hover:underline">
               All six courses

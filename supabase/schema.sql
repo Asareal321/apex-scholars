@@ -93,7 +93,7 @@ insert into packages (
     'Small group · 3–5 students',
     1, 60, 2000, 2000,
     '$20 per student.',
-    'A small group of 3 to 5 students over Google Meet. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
+    'A small group of 3 to 5 students over Google Meet. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.',
     array[
       '3 to 5 students',
       '$20 per student',

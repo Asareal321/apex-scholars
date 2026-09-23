@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { PackagesCatalog } from "@/components/packages-catalog";
-import { FallbackBanner } from "@/components/fallback-banner";
-import { DISCLAIMER } from "@/lib/catalog";
 import { loadPackages } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function PackagesPage() {
-  const { packages, source } = await loadPackages();
+  const { packages } = await loadPackages();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -21,13 +19,10 @@ export default async function PackagesPage() {
       <h1 className="mt-2 max-w-2xl text-4xl tracking-tight text-balance">
         $40/hr 1-on-1. $20 per student in a group of 3–5.
       </h1>
-      <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
-        Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy. {DISCLAIMER}
+      <p className="mt-4 mb-8 max-w-2xl text-lg leading-8 text-muted-foreground">
+        Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy.
       </p>
-      <div className="mt-8">
-        <FallbackBanner supabase />
-      </div>
-      <PackagesCatalog packages={packages} source={source} />
+      <PackagesCatalog packages={packages} />
     </div>
   );
 }

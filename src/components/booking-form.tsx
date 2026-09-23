@@ -29,7 +29,6 @@ type Confirmation = {
   tutor: string;
   subject: string;
   email: string;
-  storage?: "supabase" | "memory";
 };
 
 export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormProps) {
@@ -97,11 +96,6 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
               {CONTACT_EMAIL}
             </a>{" "}
             before the session. 24-hour cancellation policy.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {confirmation.storage === "supabase"
-              ? "This hold is saved in Supabase."
-              : "This hold is in server memory until you connect Supabase. Restarting the app clears it."}
           </p>
         </AlertDescription>
       </Alert>
@@ -176,10 +170,8 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
         <Label htmlFor="day">Day</Label>
         {days.length === 0 ? (
           <Alert>
-            <AlertTitle>No Google Meet days on this calendar</AlertTitle>
-            <AlertDescription>
-              This preview calendar skips Friday and Sunday. Try another day.
-            </AlertDescription>
+            <AlertTitle>No open days right now</AlertTitle>
+            <AlertDescription>Email {CONTACT_EMAIL} to find a time.</AlertDescription>
           </Alert>
         ) : (
           <select
@@ -209,8 +201,8 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             <AlertTitle>No open slots this day</AlertTitle>
             <AlertDescription>
               {date
-                ? "Every remaining hour is already held. Try another afternoon — Saturday mornings often open up."
-                : "Pick a day to see studio hours."}
+                ? `Every remaining hour is already held. Try another day, or email ${CONTACT_EMAIL}.`
+                : "Pick a day to see open times."}
             </AlertDescription>
           </Alert>
         ) : (

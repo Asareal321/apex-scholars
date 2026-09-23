@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div>
           <p className="font-heading text-xl text-primary">{studio.name}</p>
           <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-            Weekly Google Meet tutoring for six Western courses. {DISCLAIMER}
+            Weekly Google Meet tutoring for six Western courses.
           </p>
         </div>
         <div className="text-sm">

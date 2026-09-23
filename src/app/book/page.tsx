@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BookingForm } from "@/components/booking-form";
 import { CalendlyEmbed } from "@/components/calendly-embed";
-import { FallbackBanner } from "@/components/fallback-banner";
-import { CONTACT_EMAIL, DISCLAIMER, getSubject } from "@/lib/catalog";
+import { CONTACT_EMAIL, getSubject } from "@/lib/catalog";
 import {
   CALENDLY_SESSION_TYPES,
   getCalendlyTypeUrls,
@@ -56,8 +55,6 @@ export default async function BookPage({
             ? `Pick a session type and a Google Meet time. ${PAYMENT_LINE}`
             : `Pick a Western course and a Google Meet time. ${PAYMENT_LINE}`}
       </p>
-      <p className="mt-2 text-sm text-muted-foreground">{DISCLAIMER}</p>
-
       {calendlyUrl ? (
         <div className="mt-8 space-y-6">
           {availableTypes.length ? (
@@ -108,14 +105,9 @@ export default async function BookPage({
           </p>
         </div>
       ) : (
-        <>
-          <div className="mt-8">
-            <FallbackBanner supabase />
-          </div>
-          <div className="rounded-xl border border-border bg-card p-5 sm:p-8">
-            <BookingForm initialSubjectId={subject?.id} initialTutorId="asa" />
-          </div>
-        </>
+        <div className="mt-8 rounded-xl border border-border bg-card p-5 sm:p-8">
+          <BookingForm initialSubjectId={subject?.id} initialTutorId="asa" />
+        </div>
       )}
     </div>
   );

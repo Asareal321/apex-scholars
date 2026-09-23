@@ -177,7 +177,7 @@ export const packages: LessonPackage[] = [
     perSessionCents: 2000,
     headline: "$20 per student.",
     description:
-      "A small group of 3 to 5 students over Google Meet. Assume 60 minutes. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
+      "A small group of 3 to 5 students over Google Meet. Send an Interac e-Transfer to asanichols07@gmail.com before the session. Cancel at least 24 hours ahead.",
     includes: [
       "3 to 5 students",
       "$20 per student",
@@ -193,15 +193,15 @@ export const packages: LessonPackage[] = [
 export const faqs = [
   {
     q: "Is Apex Scholars part of Western or Ivey?",
-    a: DISCLAIMER,
+    a: "No. Apex Scholars is an independent tutoring service run by Asa Nichols.",
   },
   {
     q: "Which courses?",
-    a: "ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, and BUS 1220. That is the complete list.",
+    a: "ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, and BUS 1220.",
   },
   {
     q: "Weekly or exam-cram only?",
-    a: "Primarily weekly tutoring for everyone, not exam-cram only. The midterm headline is the hook; weekly Google Meet sessions are the year-round offer.",
+    a: "Primarily weekly tutoring, not exam-cram only.",
   },
   {
     q: "Google Meet or in person?",

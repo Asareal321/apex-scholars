@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { DISCLAIMER, subjects } from "@/lib/catalog";
+import { subjects } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -13,8 +13,7 @@ export default function SubjectsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <p className="text-xs tracking-[0.16em] text-primary uppercase">Courses</p>
-      <h1 className="mt-2 max-w-2xl text-4xl tracking-tight">Six Western courses. That’s the list.</h1>
-      <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">{DISCLAIMER}</p>
+      <h1 className="mt-2 max-w-2xl text-4xl tracking-tight">Six Western courses.</h1>
       <div className="mt-10 space-y-6">
         {subjects.map((subject) => (
           <article key={subject.id} id={subject.id} className="rounded-xl border border-border bg-card p-6">

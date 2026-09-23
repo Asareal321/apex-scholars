@@ -25,7 +25,7 @@ const afterBooking = [
     body: "You get a confirmation by email, and the Google Meet link is in the calendar invite.",
   },
   {
-    title: "Pay at least 24 hours ahead",
+    title: "Pay by e-Transfer",
     body: `${PAYMENT_LINE} For a group, one person pays for everyone and writes the number of students in the message.`,
   },
   {

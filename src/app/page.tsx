@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const steps = [
   {
     title: "Pick a time on Calendly",
-    body: "Choose 1-on-1 or a group, then a slot. You can book the same time every week.",
+    body: "Choose 1-on-1 or a group, then pick a slot.",
   },
   {
     title: "Pay ahead",

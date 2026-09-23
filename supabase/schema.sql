@@ -74,7 +74,7 @@ insert into packages (
     'one-on-one-30',
     '1-on-1 · 30 minutes',
     1, 30, 2000, 4000,
-    'Same $40/hr rate, shorter slot.',
+    'Half the time, half the price.',
     'A 30-minute 1-on-1 session on Google Meet at the same hourly rate.',
     array[
       '30 minutes, 1-on-1',

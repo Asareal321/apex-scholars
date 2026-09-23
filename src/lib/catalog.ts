@@ -132,7 +132,7 @@ export const packages: LessonPackage[] = [
     minutes: 30,
     priceCents: 2000,
     perSessionCents: 4000,
-    headline: "Same $40/hr rate, shorter slot.",
+    headline: "Half the time, half the price.",
     description: "A 30-minute 1-on-1 session on Google Meet at the same hourly rate.",
     includes: ["30 minutes, 1-on-1", "Same $40/hr rate as the full hour"],
     bestFor: "A focused check-in when a full hour is more than you need.",

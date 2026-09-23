@@ -4,7 +4,7 @@ Next.js site for Apex Scholars: weekly Google Meet tutoring for six Western Univ
 
 Production: [https://apex-scholars-bay.vercel.app](https://apex-scholars-bay.vercel.app)
 
-Payment is **Interac e-Transfer to asanichols07@gmail.com before the session** (24-hour cancellation). The site does not take payments online. Bookings go through Calendly when `NEXT_PUBLIC_CALENDLY_URL` (or a per-type link) is set; otherwise the in-app booking form holds a Google Meet slot without any third-party credentials.
+Payment is **Interac e-Transfer to asanichols07@gmail.com before the session** (24-hour cancellation). The site does not take payments online. Bookings go through Asa's Calendly (built-in default, overridable with env vars); if Calendly is turned off or fails to load, the in-app booking form holds a Google Meet slot without any third-party credentials.
 
 ## Stack
 
@@ -22,7 +22,7 @@ npm run dev
 
 Open [http://127.0.0.1:4327](http://127.0.0.1:4327). The dev server binds to port **4327**.
 
-Copy `.env.example` to `.env.local` only if you want Calendly or Supabase. Leave it alone to use in-memory fallbacks.
+Copy `.env.example` to `.env.local` only if you want to override the Calendly links or add Supabase. Leave it alone to use Asa's Calendly and in-memory fallbacks.
 
 ## Environment variables
 
@@ -33,12 +33,14 @@ All are optional.
 | `NEXT_PUBLIC_SUPABASE_URL` or `SUPABASE_URL` | Supabase project URL. Without it, rates come from `src/lib/catalog.ts` and bookings stay in server memory. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-side writes (preferred). Never expose as `NEXT_PUBLIC_*`. |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` or `SUPABASE_ANON_KEY` | Used only if the service role key is absent. |
-| `NEXT_PUBLIC_CALENDLY_URL` | Calendly profile page (`https://calendly.com/you`, student picks the event type) or a single event link. When set, `/book` shows the Calendly embed instead of the in-app form. |
-| `NEXT_PUBLIC_CALENDLY_URL_60` | Event link for 1-on-1, 60 min. |
-| `NEXT_PUBLIC_CALENDLY_URL_30` | Event link for 1-on-1, 30 min. |
-| `NEXT_PUBLIC_CALENDLY_URL_GROUP` | Event link for the small group. |
+| `NEXT_PUBLIC_CALENDLY_URL` | Calendly profile page (student picks the event type) or a single event link. **Default: `https://calendly.com/asanichols07`.** |
+| `NEXT_PUBLIC_CALENDLY_URL_60` | Event link for 1-on-1, 60 min. **Default: `https://calendly.com/asanichols07/60min`.** |
+| `NEXT_PUBLIC_CALENDLY_URL_30` | Event link for 1-on-1, 30 min. No default. |
+| `NEXT_PUBLIC_CALENDLY_URL_GROUP` | Event link for the small group. No default. |
 
-If any of the three per-type links is set, `/book` shows a session-type picker above the embed and rate cards deep-link to it (`/book?type=60`, `?type=30`, `?type=group`). With only the per-type links set, the first configured type is selected by default; with `NEXT_PUBLIC_CALENDLY_URL` also set, it is shown until the student picks a type. With no Calendly variable set, `/book` uses the in-app form. If Calendly does not load within 15 seconds, the in-app form appears as a fallback.
+The Calendly defaults live in `src/lib/env.ts` (`DEFAULT_CALENDLY_URL`, `DEFAULT_CALENDLY_URL_60`), so `/book` shows Asa's Calendly with no env vars set on Vercel. An env var overrides its default; leaving it blank keeps the default; setting it to `off` disables that link. Set both `NEXT_PUBLIC_CALENDLY_URL=off` and `NEXT_PUBLIC_CALENDLY_URL_60=off` (and leave 30/group unset) to use the in-app form instead.
+
+`/book` shows a session-type picker (1-on-1 60 min, 1-on-1 30 min, small group) above the embed, and rate cards deep-link to it (`/book?type=60`, `?type=30`, `?type=group`). A type with its own link loads that event directly; a type without one (and `/book` with no type) loads the profile page, where the student picks the event. If Calendly does not load within 15 seconds, the in-app form appears as a fallback.
 
 `NEXT_PUBLIC_*` values are baked in at build time, so redeploy on Vercel after changing them.
 
@@ -51,7 +53,7 @@ If any of the three per-type links is set, `/book` shows a session-type picker a
 2. In Calendly, connect **Google Calendar** (Integrations → Google Calendar), then set each event's **Location** to **Google Meet**. Calendly creates the Meet link and adds it to the calendar invite.
 3. Under **Invitee questions**, add **Which course?** as the *first* custom question (options: ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, BUS 1220). The site prefills it via `a1=<course code>` when the student arrives from a course link (`/book?subject=econ-1021`). If the question is missing, Calendly ignores the parameter.
 4. Under **Notifications and cancellation policy** / **Confirmation page**, add: "Send an Interac e-Transfer to asanichols07@gmail.com before the session. 24-hour cancellation policy." Add the same line to the confirmation email.
-5. Copy your profile link into `NEXT_PUBLIC_CALENDLY_URL` and/or each event link into the per-type variables.
+5. When the 30-minute and group events exist, set `NEXT_PUBLIC_CALENDLY_URL_30` and `NEXT_PUBLIC_CALENDLY_URL_GROUP` (or change the defaults in `src/lib/env.ts`). Until then those picker options open the profile page.
 
 The embed uses the site's navy/gold colours (`background_color=111d30`, `text_color=f7f2e3`, `primary_color=dbb155`, from `--card`, `--foreground` and `--primary` in `src/app/globals.css`). Custom colours need a paid Calendly plan; on the free plan Calendly shows its default colours.
 

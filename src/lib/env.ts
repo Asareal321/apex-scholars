@@ -6,9 +6,14 @@ export const CALENDLY_SESSION_TYPES: { id: CalendlySessionType; label: string; d
   { id: "group", label: "Small group", detail: "$20 / student" },
 ];
 
-function readCalendlyUrl(value: string | undefined) {
+export const DEFAULT_CALENDLY_URL = "https://calendly.com/asanichols07";
+export const DEFAULT_CALENDLY_URL_60 = "https://calendly.com/asanichols07/60min";
+
+// Unset or blank uses the fallback; "off" disables that link.
+function readCalendlyUrl(value: string | undefined, fallback: string | null = null) {
   const raw = value?.trim();
-  if (!raw) return null;
+  if (!raw) return fallback;
+  if (raw.toLowerCase() === "off") return null;
   try {
     const url = new URL(raw);
     return url.protocol === "https:" ? url.toString() : null;
@@ -18,12 +23,12 @@ function readCalendlyUrl(value: string | undefined) {
 }
 
 export function getCalendlyUrl() {
-  return readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL);
+  return readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL, DEFAULT_CALENDLY_URL);
 }
 
 export function getCalendlyTypeUrls(): Partial<Record<CalendlySessionType, string>> {
   const urls: Partial<Record<CalendlySessionType, string>> = {};
-  const url60 = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_60);
+  const url60 = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_60, DEFAULT_CALENDLY_URL_60);
   const url30 = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_30);
   const urlGroup = readCalendlyUrl(process.env.NEXT_PUBLIC_CALENDLY_URL_GROUP);
   if (url60) urls["60"] = url60;

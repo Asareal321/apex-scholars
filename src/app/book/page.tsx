@@ -38,7 +38,9 @@ export default async function BookPage({
 
   const baseUrl = getCalendlyUrl();
   const typeUrls = getCalendlyTypeUrls();
-  const availableTypes = CALENDLY_SESSION_TYPES.filter((item) => typeUrls[item.id]);
+  const linkedTypes = CALENDLY_SESSION_TYPES.filter((item) => typeUrls[item.id]);
+  // With a profile page, types without their own event link open the profile instead.
+  const availableTypes = linkedTypes.length ? (baseUrl ? CALENDLY_SESSION_TYPES : linkedTypes) : [];
   const requestedType = availableTypes.find((item) => item.id === params.type)?.id;
   const selectedType = requestedType ?? (baseUrl ? undefined : availableTypes[0]?.id);
   const calendlyUrl = (selectedType && typeUrls[selectedType]) || baseUrl;
@@ -85,9 +87,11 @@ export default async function BookPage({
                   );
                 })}
               </div>
-              {!selectedType ? (
+              {calendlyUrl === baseUrl ? (
                 <p className="text-sm text-muted-foreground">
-                  Or choose any session type in the calendar below.
+                  {selectedType
+                    ? `Choose the ${CALENDLY_SESSION_TYPES.find((item) => item.id === selectedType)?.label} option in the calendar below. Not listed? Email ${CONTACT_EMAIL}.`
+                    : "Or choose any session type in the calendar below."}
                 </p>
               ) : null}
             </nav>

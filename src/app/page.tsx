@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { BookOpen } from "lucide-react";
 import {
   Accordion,
@@ -6,10 +7,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  WeekAvailabilitySummary,
+  WeekAvailabilitySummarySkeleton,
+} from "@/components/availability";
 import { buttonVariants } from "@/components/ui/button";
 import { MountainMark } from "@/components/mountain-mark";
 import { AVAILABILITY, BUS_1220_LINE, PAYMENT_LINE, studio, subjects } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
+
+export const revalidate = 300;
 
 const steps = [
   {
@@ -69,28 +76,33 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <aside className="rounded-2xl border border-primary/30 bg-card p-6">
-            <MountainMark className="size-12" />
-            <p className="mt-4 text-xs tracking-[0.16em] text-primary uppercase">Rates</p>
-            <dl className="mt-3 grid grid-cols-2 gap-4 text-sm">
-              <div className="rounded-xl bg-secondary p-4">
-                <dt className="text-muted-foreground">1-on-1</dt>
-                <dd className="font-heading text-3xl text-primary">$40/hr</dd>
-                <p className="mt-1 text-xs text-muted-foreground">60 min · optional 30 min</p>
-              </div>
-              <div className="rounded-xl bg-secondary p-4">
-                <dt className="text-muted-foreground">Group 3–5</dt>
-                <dd className="font-heading text-3xl text-primary">$30</dd>
-                <p className="mt-1 text-xs text-muted-foreground">per student</p>
-              </div>
-            </dl>
-            <Link
-              href="/packages"
-              className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
-            >
-              Policies and group details
-            </Link>
-          </aside>
+          <div className="space-y-4">
+            <aside className="rounded-2xl border border-primary/30 bg-card p-6">
+              <MountainMark className="size-12" />
+              <p className="mt-4 text-xs tracking-[0.16em] text-primary uppercase">Rates</p>
+              <dl className="mt-3 grid grid-cols-2 gap-4 text-sm">
+                <div className="rounded-xl bg-secondary p-4">
+                  <dt className="text-muted-foreground">1-on-1</dt>
+                  <dd className="font-heading text-3xl text-primary">$40/hr</dd>
+                  <p className="mt-1 text-xs text-muted-foreground">60 min · optional 30 min</p>
+                </div>
+                <div className="rounded-xl bg-secondary p-4">
+                  <dt className="text-muted-foreground">Group 3–5</dt>
+                  <dd className="font-heading text-3xl text-primary">$30</dd>
+                  <p className="mt-1 text-xs text-muted-foreground">per student</p>
+                </div>
+              </dl>
+              <Link
+                href="/packages"
+                className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+              >
+                Policies and group details
+              </Link>
+            </aside>
+            <Suspense fallback={<WeekAvailabilitySummarySkeleton />}>
+              <WeekAvailabilitySummary />
+            </Suspense>
+          </div>
         </div>
       </section>
 

@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import {
+  BookAvailability,
+  BookAvailabilitySkeleton,
+  bookHref,
+} from "@/components/availability";
 import { BookingForm } from "@/components/booking-form";
 import { CalendlyEmbed } from "@/components/calendly-embed";
 import { CANCELLATION_LINE, PAYMENT_LINE, getSubject } from "@/lib/catalog";
+import { formatSlotDateTime, getAvailability } from "@/lib/calendly-availability";
 import {
   CALENDLY_SESSION_TYPES,
   getCalendlyTypeUrls,
@@ -63,16 +70,21 @@ function AfterBooking() {
   );
 }
 
-function bookHref(type: CalendlySessionType, subjectId?: string) {
-  const params = new URLSearchParams({ type });
-  if (subjectId) params.set("subject", subjectId);
-  return `/book?${params.toString()}`;
+async function findSlot(type: CalendlySessionType | undefined, at: string | undefined) {
+  if (!type || !at) return null;
+  const availability = await getAvailability();
+  if (availability.status !== "ok") return null;
+  return (
+    availability.types
+      .find((item) => item.id === type)
+      ?.slots.find((slot) => slot.startTime === at) ?? null
+  );
 }
 
 export default async function BookPage({
   searchParams,
 }: {
-  searchParams: Promise<{ subject?: string; tutor?: string; type?: string }>;
+  searchParams: Promise<{ subject?: string; tutor?: string; type?: string; at?: string }>;
 }) {
   const params = await searchParams;
   const subject = getSubject(params.subject);
@@ -84,7 +96,9 @@ export default async function BookPage({
   const availableTypes = linkedTypes.length ? (baseUrl ? CALENDLY_SESSION_TYPES : linkedTypes) : [];
   const requestedType = availableTypes.find((item) => item.id === params.type)?.id;
   const selectedType = requestedType ?? (baseUrl ? undefined : availableTypes[0]?.id);
-  const calendlyUrl = (selectedType && typeUrls[selectedType]) || baseUrl;
+  const typeUrl = (selectedType && typeUrls[selectedType]) || baseUrl;
+  const selectedSlot = typeUrl ? await findSlot(selectedType, params.at) : null;
+  const calendlyUrl = selectedSlot?.schedulingUrl ?? typeUrl;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
@@ -108,7 +122,7 @@ export default async function BookPage({
                   return (
                     <Link
                       key={item.id}
-                      href={bookHref(item.id, subject?.id)}
+                      href={bookHref(item.id, { subjectId: subject?.id })}
                       scroll={false}
                       replace
                       aria-current={active ? "page" : undefined}
@@ -138,13 +152,39 @@ export default async function BookPage({
               ) : null}
             </nav>
           ) : null}
-          <CalendlyEmbed
-            key={calendlyUrl}
-            url={calendlyUrl}
-            subjectId={subject?.id}
-            courseCode={subject?.name}
-            tutorId="asa"
-          />
+          <Suspense key={selectedType ?? "all"} fallback={<BookAvailabilitySkeleton />}>
+            <BookAvailability
+              selectedType={selectedType}
+              subjectId={subject?.id}
+              selectedAt={selectedSlot?.startTime}
+            />
+          </Suspense>
+          <div id="calendar" className="scroll-mt-20 space-y-3">
+            {selectedSlot ? (
+              <p className="text-sm">
+                <span className="text-muted-foreground">Selected time: </span>
+                <span className="font-medium">
+                  {formatSlotDateTime(selectedSlot.startTime)} (Toronto)
+                </span>
+                {" · "}
+                <a
+                  href={selectedSlot.schedulingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-primary hover:underline"
+                >
+                  Open in Calendly
+                </a>
+              </p>
+            ) : null}
+            <CalendlyEmbed
+              key={calendlyUrl}
+              url={calendlyUrl}
+              subjectId={subject?.id}
+              courseCode={subject?.name}
+              tutorId="asa"
+            />
+          </div>
         </div>
       ) : (
         <div className="mt-8 rounded-xl border border-border bg-card p-5 sm:p-8">

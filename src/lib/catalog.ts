@@ -37,7 +37,7 @@ export const DISCLAIMER = "Independent service. Not affiliated with Western Univ
 
 export const BUS_1220_LINE = "88 in BUS 1220 ending with 10/10 in participation";
 
-export const PAYMENT_LINE = `Send an Interac e-Transfer to ${CONTACT_EMAIL} at least 24 hours before the session. No payment, no session.`;
+export const PAYMENT_LINE = `Pay by Interac e-Transfer to ${CONTACT_EMAIL}. The e-Transfer must arrive at least 24 hours before the session.`;
 
 export const CANCELLATION_LINE =
   "Cancel with at least 12 hours’ notice. Late cancellations are not refunded.";

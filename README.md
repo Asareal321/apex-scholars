@@ -4,7 +4,7 @@ Next.js site for Apex Scholars: weekly Google Meet tutoring for six Western Univ
 
 Production: [https://apex-scholars-bay.vercel.app](https://apex-scholars-bay.vercel.app)
 
-Payment is **Interac e-Transfer to asanichols07@gmail.com at least 24 hours before the session** (no payment, no session). Cancellations need 12 hours' notice; late cancellations are not refunded. The site does not take payments online. Bookings go through Asa's Calendly (built-in default, overridable with env vars); if Calendly is turned off or fails to load, the in-app booking form holds a Google Meet slot without any third-party credentials.
+Payment is **Interac e-Transfer to asanichols07@gmail.com**; the e-Transfer must arrive at least 24 hours before the session. Cancellations need 12 hours' notice; late cancellations are not refunded. The site does not take payments online. Bookings go through Asa's Calendly (built-in default, overridable with env vars); if Calendly is turned off or fails to load, the in-app booking form holds a Google Meet slot without any third-party credentials.
 
 ## Stack
 
@@ -52,7 +52,7 @@ The Calendly defaults live in `src/lib/env.ts` (`DEFAULT_CALENDLY_URL`, `DEFAULT
    - **Small group · 60 min** (Group, max 5 invitees)
 2. In Calendly, connect **Google Calendar** (Integrations → Google Calendar), then set each event's **Location** to **Google Meet**. Calendly creates the Meet link and adds it to the calendar invite.
 3. Under **Invitee questions**, add **Which course?** as the *first* custom question (options: ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, BUS 1220). The site prefills it via `a1=<course code>` when the student arrives from a course link (`/book?subject=econ-1021`). If the question is missing, Calendly ignores the parameter.
-4. Under **Notifications and cancellation policy** / **Confirmation page**, add: "Send an Interac e-Transfer to asanichols07@gmail.com at least 24 hours before the session. No payment, no session. Cancel with at least 12 hours' notice. Late cancellations are not refunded." Add the same lines to the confirmation email.
+4. Under **Notifications and cancellation policy** / **Confirmation page**, add: "Pay by Interac e-Transfer to asanichols07@gmail.com. The e-Transfer must arrive at least 24 hours before the session. Cancel with at least 12 hours' notice. Late cancellations are not refunded." Add the same lines to the confirmation email.
 5. The three events are `asanichols07/60min`, `asanichols07/30min` and `asanichols07/60min-1` (group). If you rename one in Calendly, update its env var or the default in `src/lib/env.ts`.
 
 The embed uses the site's navy/gold colours (`background_color=111d30`, `text_color=f7f2e3`, `primary_color=dbb155`, from `--card`, `--foreground` and `--primary` in `src/app/globals.css`). Custom colours need a paid Calendly plan; on the free plan Calendly shows its default colours.

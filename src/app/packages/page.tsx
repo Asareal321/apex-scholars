@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { PackagesCatalog } from "@/components/packages-catalog";
-import { AVAILABILITY, CANCELLATION_LINE, PAYMENT_LINE } from "@/lib/catalog";
+import { AVAILABILITY, CANCELLATION_LINE, GROUP_PAYMENT_LINE, PAYMENT_LINE } from "@/lib/catalog";
 import { loadPackages } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ const policies = [
   { title: "Cancellations", body: CANCELLATION_LINE },
   {
     title: "Groups",
-    body: "Arrange your own group of 3 to 5 classmates before the session. One person sends a single e-Transfer for everyone ($30 per student) and writes the number of students in the message.",
+    body: `Arrange your own group of 3 to 5 classmates before the session. ${GROUP_PAYMENT_LINE}`,
   },
 ];
 

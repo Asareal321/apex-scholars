@@ -4,7 +4,7 @@ Next.js site for Apex Scholars: weekly Google Meet tutoring for six Western Univ
 
 Production: [https://apex-scholars-bay.vercel.app](https://apex-scholars-bay.vercel.app)
 
-Payment is **Interac e-Transfer to asanichols07@gmail.com**; the e-Transfer must arrive at least 24 hours before the session. Cancellations need 12 hours' notice; late cancellations are not refunded. The site does not take payments online. Bookings go through Asa's Calendly (built-in default, overridable with env vars); if Calendly is turned off or fails to load, the in-app booking form holds a Google Meet slot without any third-party credentials.
+1-on-1 sessions (60 and 30 min) are paid **by card when you book through Calendly** (Stripe, connected inside Calendly). Small group sessions are paid by **Interac e-Transfer to asanichols07@gmail.com**; one person pays for everyone ($30 per student). Cancellations need 12 hours' notice; late cancellations are not refunded. The site itself does not handle payments. Bookings go through Asa's Calendly (built-in default, overridable with env vars); if Calendly is turned off or fails to load, the in-app booking form holds a Google Meet slot without any third-party credentials.
 
 ## Stack
 
@@ -50,11 +50,12 @@ The Calendly defaults live in `src/lib/env.ts` (`DEFAULT_CALENDLY_URL`, `DEFAULT
 1. Create three event types:
    - **1-on-1 · 60 min** (One-on-One)
    - **1-on-1 · 30 min** (One-on-One)
-   - **Small group · 60 min** (Group, max 5 invitees)
+   - **Small group · 60 min** (Group, max 5 invitees; no Calendly payment, paid by e-Transfer)
 2. In Calendly, connect **Google Calendar** (Integrations → Google Calendar), then set each event's **Location** to **Google Meet**. Calendly creates the Meet link and adds it to the calendar invite.
 3. Under **Invitee questions**, add **Which course?** as the *first* custom question (options: ECON 1021, ECON 1022, MATH 1229, CALC 1000, MOS 1023, BUS 1220). The site prefills it via `a1=<course code>` when the student arrives from a course link (`/book?subject=econ-1021`). If the question is missing, Calendly ignores the parameter.
-4. Under **Notifications and cancellation policy** / **Confirmation page**, add: "Pay by Interac e-Transfer to asanichols07@gmail.com. The e-Transfer must arrive at least 24 hours before the session. Cancel with at least 12 hours' notice. Late cancellations are not refunded." Add the same lines to the confirmation email.
-5. The three events are `asanichols07/60min`, `asanichols07/30min` and `asanichols07/60min-1` (group). If you rename one in Calendly, update its env var or the default in `src/lib/env.ts`.
+4. Under **Integrations → Stripe**, connect Stripe, then turn on **Collect payment** in the two 1-on-1 events' **Booking page options** ($40 for 60 min, $20 for 30 min). Leave payment off for the group event.
+5. Under **Notifications and cancellation policy**, add to every event: "Cancel with at least 12 hours' notice. Late cancellations are not refunded." For the group event, also add: "One person pays for everyone ($30 per student) by Interac e-Transfer to asanichols07@gmail.com and writes the number of students in the message." Add the same lines to the confirmation email.
+6. The three events are `asanichols07/60min`, `asanichols07/30min` and `asanichols07/60min-1` (group). If you rename one in Calendly, update its env var or the default in `src/lib/env.ts`.
 
 The embed uses the site's navy/gold colours (`background_color=111d30`, `text_color=f7f2e3`, `primary_color=dbb155`, from `--card`, `--foreground` and `--primary` in `src/app/globals.css`). Custom colours need a paid Calendly plan; on the free plan Calendly shows its default colours.
 
@@ -82,9 +83,9 @@ For local testing against a mock server, set `CALENDLY_API_BASE_URL` (defaults t
 3. Set the URL plus `SUPABASE_SERVICE_ROLE_KEY` (or the anon key).
 4. Restart the Next.js server.
 
-### Interac e-Transfer
+### Payment copy
 
-The payment and cancellation copy lives in `PAYMENT_LINE` and `CANCELLATION_LINE` in `src/lib/catalog.ts`; the e-Transfer address is `CONTACT_EMAIL` in the same file and doubles as the footer contact email. Package cards read from Supabase when it is configured, so keep `supabase/schema.sql` (and the live `packages` rows) in step with `packages` in `catalog.ts`.
+The payment and cancellation copy lives in `PAYMENT_LINE`, `GROUP_PAYMENT_LINE` and `CANCELLATION_LINE` in `src/lib/catalog.ts`. `CONTACT_EMAIL` in the same file is the footer contact email and the group e-Transfer address; when the in-app fallback form is used instead of Calendly, students are told to email it to arrange payment. Package cards read from Supabase when it is configured, so keep `supabase/schema.sql` (and the live `packages` rows) in step with `packages` in `catalog.ts`.
 
 ## Deploy on Vercel
 

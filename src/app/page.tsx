@@ -24,7 +24,7 @@ const steps = [
     body: "Choose 1-on-1 or a group, then pick a slot.",
   },
   {
-    title: "Pay ahead",
+    title: "Payment",
     body: PAYMENT_LINE,
   },
   {

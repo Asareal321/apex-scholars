@@ -91,11 +91,11 @@ export function BookingForm({ initialSubjectId, initialTutorId }: BookingFormPro
             {confirmation.subject} with {confirmation.tutor} on {confirmation.slotLabel}.
           </p>
           <p>
-            A confirmation will go to {confirmation.email}. Pay by Interac e-Transfer to{" "}
+            A confirmation will go to {confirmation.email}. Email{" "}
             <a className="font-medium text-primary underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
               {CONTACT_EMAIL}
-            </a>
-            . The e-Transfer must arrive at least 24 hours before the session.
+            </a>{" "}
+            to arrange payment.
           </p>
         </AlertDescription>
       </Alert>

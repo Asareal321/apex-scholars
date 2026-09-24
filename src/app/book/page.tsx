@@ -8,7 +8,13 @@ import {
 } from "@/components/availability";
 import { BookingForm } from "@/components/booking-form";
 import { CalendlyEmbed } from "@/components/calendly-embed";
-import { CANCELLATION_LINE, PAYMENT_LINE, getSubject } from "@/lib/catalog";
+import {
+  CANCELLATION_LINE,
+  CONTACT_EMAIL,
+  GROUP_PAYMENT_LINE,
+  PAYMENT_LINE,
+  getSubject,
+} from "@/lib/catalog";
 import { formatSlotDateTime, getAvailability } from "@/lib/calendly-availability";
 import {
   CALENDLY_SESSION_TYPES,
@@ -26,26 +32,42 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const afterBooking = [
-  {
-    title: "Check your invite",
-    body: "You get a confirmation by email, and the Google Meet link is in the calendar invite.",
-  },
-  {
-    title: "Pay by e-Transfer",
-    body: `${PAYMENT_LINE} For a group, one person pays for everyone and writes the number of students in the message.`,
-  },
-  {
-    title: "Send your materials",
-    body: "Bring the course syllabus to your first session. Before every session, share the lecture slides, cases or assignment details you want to cover at least 24 hours ahead.",
-  },
-  {
-    title: "Need to cancel?",
-    body: CANCELLATION_LINE,
-  },
-];
+function paymentStep(viaCalendly: boolean, type: CalendlySessionType | undefined) {
+  if (!viaCalendly) return `Email ${CONTACT_EMAIL} to arrange payment.`;
+  if (type === "group") return "One person pays for the whole group, as described above.";
+  if (type) return PAYMENT_LINE;
+  return `${PAYMENT_LINE} Group payment is explained on the Rates page.`;
+}
 
-function AfterBooking() {
+function afterBookingSteps(viaCalendly: boolean, type: CalendlySessionType | undefined) {
+  return [
+    {
+      title: "Check your invite",
+      body: "You get a confirmation by email, and the Google Meet link is in the calendar invite.",
+    },
+    {
+      title: "Payment",
+      body: paymentStep(viaCalendly, type),
+    },
+    {
+      title: "Send your materials",
+      body: "Bring the course syllabus to your first session. Before every session, share the lecture slides, cases or assignment details you want to cover at least 24 hours ahead.",
+    },
+    {
+      title: "Need to cancel?",
+      body: CANCELLATION_LINE,
+    },
+  ];
+}
+
+function AfterBooking({
+  viaCalendly,
+  type,
+}: {
+  viaCalendly: boolean;
+  type: CalendlySessionType | undefined;
+}) {
+  const afterBooking = afterBookingSteps(viaCalendly, type);
   return (
     <section className="mt-10">
       <h2 className="text-2xl tracking-tight">After you book</h2>
@@ -147,7 +169,8 @@ export default async function BookPage({
               )}
               {selectedType === "group" ? (
                 <p className="text-sm text-muted-foreground">
-                  Book once for the whole group of 3 to 5. Arrange your group before the session.
+                  Book once for the whole group of 3 to 5. Arrange your group before the session.{" "}
+                  {GROUP_PAYMENT_LINE}
                 </p>
               ) : null}
             </nav>
@@ -191,7 +214,7 @@ export default async function BookPage({
           <BookingForm initialSubjectId={subject?.id} initialTutorId="asa" />
         </div>
       )}
-      <AfterBooking />
+      <AfterBooking viaCalendly={Boolean(calendlyUrl)} type={selectedType} />
     </div>
   );
 }

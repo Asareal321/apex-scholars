@@ -37,7 +37,9 @@ export const DISCLAIMER = "Independent service. Not affiliated with Western Univ
 
 export const BUS_1220_LINE = "88 in BUS 1220 ending with 10/10 in participation";
 
-export const PAYMENT_LINE = `Pay by Interac e-Transfer to ${CONTACT_EMAIL}. The e-Transfer must arrive at least 24 hours before the session.`;
+export const PAYMENT_LINE = "1-on-1 sessions: pay by card when you book through Calendly.";
+
+export const GROUP_PAYMENT_LINE = `One person pays for everyone ($30 per student) by Interac e-Transfer to ${CONTACT_EMAIL} and writes the number of students in the message.`;
 
 export const CANCELLATION_LINE =
   "Cancel with at least 12 hours’ notice. Late cancellations are not refunded.";
@@ -146,7 +148,7 @@ export const packages: LessonPackage[] = [
     perSessionCents: 3000,
     headline: "Bring your own study group.",
     description: "A 60-minute session on Google Meet for a group of 3 to 5 students.",
-    includes: ["60 minutes, 3 to 5 students", "One booking and one payment per group"],
+    includes: ["60 minutes, 3 to 5 students", "One person pays for everyone by Interac e-Transfer"],
     bestFor: "Classmates in the same course who want to study together.",
     groupSize: "3–5",
   },

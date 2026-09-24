@@ -91,7 +91,7 @@ insert into packages (
     'A 60-minute session on Google Meet for a group of 3 to 5 students.',
     array[
       '60 minutes, 3 to 5 students',
-      'One booking and one payment per group'
+      'One person pays for everyone by Interac e-Transfer'
     ],
     'Classmates in the same course who want to study together.',
     false, '3–5', 3

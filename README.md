@@ -37,6 +37,7 @@ All are optional.
 | `NEXT_PUBLIC_CALENDLY_URL_60` | Event link for 1-on-1, 60 min. **Default: `https://calendly.com/asanichols07/60min`.** |
 | `NEXT_PUBLIC_CALENDLY_URL_30` | Event link for 1-on-1, 30 min. **Default: `https://calendly.com/asanichols07/30min`.** |
 | `NEXT_PUBLIC_CALENDLY_URL_GROUP` | Event link for the small group. **Default: `https://calendly.com/asanichols07/60min-1`.** |
+| `CALENDLY_API_TOKEN` | Calendly API v2 personal access token for live open times on Home and `/book`. **Server-side only; never add a `NEXT_PUBLIC_` prefix.** Without it the site shows "Availability coming soon" and the calendar still works. See [Live availability](#live-availability). |
 
 The Calendly defaults live in `src/lib/env.ts` (`DEFAULT_CALENDLY_URL`, `DEFAULT_CALENDLY_URL_60`, `DEFAULT_CALENDLY_URL_30`, `DEFAULT_CALENDLY_URL_GROUP`), so `/book` shows Asa's Calendly with no env vars set on Vercel. An env var overrides its default; leaving it blank keeps the default; setting it to `off` disables that link. Set all four (`NEXT_PUBLIC_CALENDLY_URL`, `_60`, `_30`, `_GROUP`) to `off` to use the in-app form instead.
 
@@ -57,6 +58,23 @@ The Calendly defaults live in `src/lib/env.ts` (`DEFAULT_CALENDLY_URL`, `DEFAULT
 
 The embed uses the site's navy/gold colours (`background_color=111d30`, `text_color=f7f2e3`, `primary_color=dbb155`, from `--card`, `--foreground` and `--primary` in `src/app/globals.css`). Custom colours need a paid Calendly plan; on the free plan Calendly shows its default colours.
 
+### Live availability
+
+Home shows a "This week" box (open slots per session type and the next open time), and `/book` lists every open time for the next 7 days, grouped by day, for the selected session type. Picking a time loads that slot straight into the Calendly embed (`/book?type=60&at=<start time>`). Times are shown in America/Toronto.
+
+1. In Calendly, go to **Integrations & apps → API and webhooks → Personal access tokens** and generate a token with the **`event_types:read`** scope.
+2. Set it as `CALENDLY_API_TOKEN` in `.env.local` and on Vercel (**Project → Settings → Environment Variables**), then redeploy.
+
+How it works (`src/lib/calendly-availability.ts`, server-only):
+
+- `GET /users/me`, then `GET /event_types?user=…`, matched to the three event links (`NEXT_PUBLIC_CALENDLY_URL_60`, `_30`, `_GROUP` or their defaults) on `scheduling_url`.
+- `GET /event_type_available_times` for each type, from now to 7 days out.
+- Responses are cached with Next's fetch cache: open times for 5 minutes, the user and event types for an hour. Home revalidates every 5 minutes.
+- A missing token, an unmatched event link, a timeout, an error or a rate limit (429) all fall back to a quiet "Availability coming soon" / "Check the calendar below" message; the page and embed keep working. Failures are logged as `[calendly] availability unavailable: …`.
+- An empty week shows "No open times this week — email asanichols07@gmail.com".
+
+For local testing against a mock server, set `CALENDLY_API_BASE_URL` (defaults to `https://api.calendly.com`).
+
 ### Supabase
 
 1. Create a project.
@@ -74,7 +92,7 @@ The production site is [https://apex-scholars-bay.vercel.app](https://apex-schol
 
 1. Import the repo in the Vercel dashboard.
 2. `vercel.json` pins `framework: "nextjs"`.
-3. Optional: set `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` under **Project → Settings → Environment Variables**, and the Calendly variables (`NEXT_PUBLIC_CALENDLY_URL`, `NEXT_PUBLIC_CALENDLY_URL_60`, `NEXT_PUBLIC_CALENDLY_URL_30`, `NEXT_PUBLIC_CALENDLY_URL_GROUP`), then redeploy.
+3. Optional: set `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` under **Project → Settings → Environment Variables**, and the Calendly variables (`NEXT_PUBLIC_CALENDLY_URL`, `NEXT_PUBLIC_CALENDLY_URL_60`, `NEXT_PUBLIC_CALENDLY_URL_30`, `NEXT_PUBLIC_CALENDLY_URL_GROUP`), plus `CALENDLY_API_TOKEN` for live open times, then redeploy.
 
 Do not commit `.vercel/` or `.env*.local`.
 
